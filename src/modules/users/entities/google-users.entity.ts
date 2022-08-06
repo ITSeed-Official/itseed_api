@@ -7,12 +7,12 @@ import {
   OneToOne,
   Index,
   JoinColumn,
-} from 'typeorm';
-import { UserEntity } from './users.entity';
-import { ResponseGoogleUserDto } from '../dto';
+} from "typeorm";
+import { UserEntity } from "./users.entity";
+import { ResponseGoogleUserDto } from "../dto";
 
-@Index('googleId', ['googleId'], { unique: true })
-@Entity('google_users')
+@Index("googleId", ["googleId"], { unique: true })
+@Entity("google_users")
 export class GoogleUserEntity {
   @PrimaryGeneratedColumn()
   id: number;
@@ -39,7 +39,7 @@ export class GoogleUserEntity {
   avatar: string;
 
   @OneToOne(() => UserEntity)
-  @JoinColumn({ name: 'userId' })
+  @JoinColumn({ name: "userId" })
   user: UserEntity;
 
   @Column()
@@ -49,15 +49,15 @@ export class GoogleUserEntity {
   accessToken: string;
 
   @CreateDateColumn({
-    type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP(6)',
+    type: "timestamp",
+    default: () => "CURRENT_TIMESTAMP(6)",
   })
   public createdAt: Date;
 
   @UpdateDateColumn({
-    type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP(6)',
-    onUpdate: 'CURRENT_TIMESTAMP(6)',
+    type: "timestamp",
+    default: () => "CURRENT_TIMESTAMP(6)",
+    onUpdate: "CURRENT_TIMESTAMP(6)",
   })
   public updatedAt: Date;
 

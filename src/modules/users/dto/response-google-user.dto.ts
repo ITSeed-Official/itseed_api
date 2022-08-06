@@ -1,5 +1,5 @@
-import { ResponseUserDto } from './response-user.dto';
-import { ApiResponseProperty } from '@nestjs/swagger';
+import { ResponseUserDto } from "./response-user.dto";
+import { ApiResponseProperty } from "@nestjs/swagger";
 
 export class ResponseGoogleUserDto {
   @ApiResponseProperty()

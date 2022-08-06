@@ -1,17 +1,17 @@
-import winston, { format, transports } from 'winston';
-import Sentry from 'winston-transport-sentry-node';
+import winston, { format, transports } from "winston";
+// import Sentry from "winston-transport-sentry-node";
 
-const sentryOptions = {
-  sentry: {
-    dsn:
-      process.env.NODE_ENV === 'production'
-        ? ''
-        : process.env.NODE_ENV === 'staging'
-        ? ''
-        : null,
-  },
-  level: 'info',
-};
+// const sentryOptions = {
+//   sentry: {
+//     dsn:
+//       process.env.NODE_ENV === "production"
+//         ? ""
+//         : process.env.NODE_ENV === "staging"
+//         ? ""
+//         : null,
+//   },
+//   level: "info",
+// };
 
 export class LoggerConfig {
   private readonly options: winston.LoggerOptions;
@@ -25,14 +25,14 @@ export class LoggerConfig {
         format.printf(
           ({ timestamp, level, context, message, stack, trace }) => {
             return `${timestamp} [${level}] [${context}] - ${message} \n ${
-              stack ? stack : ''
-            } ${trace ? trace : ''}`;
-          },
-        ),
+              stack ? stack : ""
+            } ${trace ? trace : ""}`;
+          }
+        )
       ),
       transports: [
         new transports.Console({
-          level: process.env.NODE_ENV === 'production' ? 'warning' : 'debug',
+          level: process.env.NODE_ENV === "production" ? "warning" : "debug",
         }),
         // ...(process.env.NODE_ENV === 'production' ||
         // process.env.NODE_ENV === 'staging'

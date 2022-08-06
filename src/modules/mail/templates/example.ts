@@ -1,4 +1,4 @@
-import mjml2html from 'mjml';
+import mjml2html from "mjml";
 
 export interface IVerifyEmail {
   nickname: string;
@@ -33,6 +33,6 @@ export const genVerifyEmail = ({
       </mj-section>
     </mj-body>
   </mjml>
-`,
+`
   ).html,
 });

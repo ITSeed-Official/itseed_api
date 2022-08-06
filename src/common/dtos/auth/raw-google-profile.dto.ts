@@ -12,5 +12,5 @@ export class RawGoogleProfile {
   photos: {
     value: string;
   }[];
-  provider: 'google';
+  provider: "google";
 }

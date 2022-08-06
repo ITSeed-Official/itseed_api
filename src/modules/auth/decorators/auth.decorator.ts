@@ -1,11 +1,7 @@
 import { applyDecorators, SetMetadata, UseGuards } from "@nestjs/common";
 import { JwtAuthGuard } from "../guards/jwt-auth.guard";
 import { UserGuard } from "../guards/user.guard";
-import {
-  ApiBearerAuth,
-  ApiOperation,
-  ApiUnauthorizedResponse,
-} from "@nestjs/swagger";
+import { ApiBearerAuth, ApiUnauthorizedResponse } from "@nestjs/swagger";
 
 interface Options {
   skipEmailVerifyCheck?: boolean;

@@ -48,7 +48,7 @@ export class FileUploadService {
       }
       this.logger.debug(`uploaded - result:${JSON.stringify(result)}`);
       const s3Location = result.Location;
-      let cdnLocation = "";
+      const cdnLocation = "";
       return {
         location: cdnLocation || s3Location,
       };

@@ -6,21 +6,14 @@ import {
   HttpException,
   HttpStatus,
 } from "@nestjs/common";
-import { Reflector } from "@nestjs/core";
 import { UserEntity } from "../../users";
 import { ErrorCode } from "../../../common/enum";
-import { AuthService } from "../auth.service";
 
 @Injectable()
 export class UserGuard implements CanActivate {
   private readonly logger = new Logger(UserGuard.name);
-  constructor(private reflector: Reflector, private authService: AuthService) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    const skipEmailVerifyCheck = this.reflector.get<boolean>(
-      "skipEmailVerifyCheck",
-      context.getHandler()
-    );
     const request = context.switchToHttp().getRequest();
     const user: UserEntity = request.user;
 

@@ -152,7 +152,6 @@
   "pre-commit": [
     "format",
     "lint",
-    "build",
-    "test"
+    "build"
   ]
 }
