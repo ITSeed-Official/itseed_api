@@ -10,7 +10,6 @@ exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
 const typeorm_1 = require("@nestjs/typeorm");
-const nestjs_redis_1 = require("nestjs-redis");
 const modules_1 = require("./modules");
 const controllers_1 = require("./controllers");
 const DatabaseLogger_1 = require("./common/logger/DatabaseLogger");
@@ -27,13 +26,6 @@ AppModule = __decorate([
                     logger: new DatabaseLogger_1.DatabaseLogger(),
                 }
                 : {}))),
-            nestjs_redis_1.RedisModule.register({
-                host: process.env.REDIS_HOST,
-                port: parseInt(process.env.REDIS_PORT),
-                db: parseInt(process.env.REDIS_DB),
-                password: process.env.REDIS_PASSWORD,
-                keyPrefix: process.env.REDIS_PREFIX,
-            }),
             modules_1.UsersModule,
             modules_1.AuthModule,
         ],
