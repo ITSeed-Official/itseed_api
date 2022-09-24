@@ -1,7 +1,6 @@
 import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { RedisModule } from "nestjs-redis";
 
 import {
   UsersModule,
@@ -35,13 +34,6 @@ import { DatabaseLogger } from "./common/logger/DatabaseLogger";
             logger: new DatabaseLogger(),
           }
         : {}),
-    }),
-    RedisModule.register({
-      host: process.env.REDIS_HOST,
-      port: parseInt(process.env.REDIS_PORT),
-      db: parseInt(process.env.REDIS_DB),
-      password: process.env.REDIS_PASSWORD,
-      keyPrefix: process.env.REDIS_PREFIX,
     }),
     UsersModule,
     AuthModule,
