@@ -1,0 +1,84 @@
+{
+	"info": {
+		"_postman_id": "79b27659-e136-4ef4-9760-0dbd6b810988",
+		"name": "itseed_api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23781403"
+	},
+	"item": [
+		{
+			"name": "GET {{host}}/health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/health",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET {{host}}/applications/me",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "{{cookie}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/applications/me",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"applications",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT {{host}}/applications/me",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "{{cookie}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"data\": {\n        \"info\": {\n            \"nickname\": \"薛翔文\",\n            \"gender\": \"male\",\n            \"phone\": \"0912345678\",\n            \"school\": \"資種大學\",\n            \"department\": \"資種學系\",\n            \"grade\": 2,\n            \"recommender\": \"陳建宇\",\n            \"referer\": [\n                \"google\",\n                \"facebook\"\n            ]\n        },\n        \"survey\": [\n            {\n                \"number\": 1,\n                \"answerNumber\": 1\n            }\n        ],\n        \"answer\": [\n            {\n                \"number\": 1,\n                \"answer\": \"試試看\"\n            }\n        ],\n        \"files\": {\n            \"resume\": {\n                \"path\": \"/12312\",\n                \"name\": \"file name\"\n            },\n            \"certification\": {\n                \"path\": \"/12312\",\n                \"name\": \"file name\"\n            }\n        }\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/applications/me",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"applications",
+						"me"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
