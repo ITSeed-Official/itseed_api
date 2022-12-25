@@ -12,8 +12,12 @@ import {
   AuthController,
   UsersController,
   HealthController,
+  ApplicationsController,
 } from "./controllers";
 import { DatabaseLogger } from "./common/logger/DatabaseLogger";
+import { UserSurveyAnswersModule } from "./modules/user-survey-answers/user-survey-answers.module";
+import { UserInterviewAnswersModule } from "./modules/user-interview-answers/user-interview-answers.module";
+import { UserFilesModule } from "./modules/user-files/user-files.module";
 
 @Module({
   imports: [
@@ -37,8 +41,16 @@ import { DatabaseLogger } from "./common/logger/DatabaseLogger";
     }),
     UsersModule,
     AuthModule,
+    UserSurveyAnswersModule,
+    UserInterviewAnswersModule,
+    UserFilesModule,
   ],
   providers: [FileUploadService, MailService],
-  controllers: [AuthController, UsersController, HealthController],
+  controllers: [
+    AuthController,
+    UsersController,
+    HealthController,
+    ApplicationsController,
+  ],
 })
 export class AppModule {}
