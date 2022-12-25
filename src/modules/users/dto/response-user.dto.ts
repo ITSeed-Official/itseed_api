@@ -19,4 +19,22 @@ export class ResponseUserDto {
 
   @ApiResponseProperty()
   avatar: string;
+
+  @ApiResponseProperty()
+  phone: string;
+
+  @ApiResponseProperty()
+  school: string;
+
+  @ApiResponseProperty()
+  department: string;
+
+  @ApiResponseProperty()
+  grade: number;
+
+  @ApiResponseProperty()
+  recommender: string;
+
+  @ApiResponseProperty()
+  referer: string[];
 }

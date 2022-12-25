@@ -98,29 +98,39 @@ export class UsersService {
   async getOrCreateUserFromGoogle(
     rawUser: TransformedGoogleUser
   ): Promise<UserEntity> {
-    let user = await this.findOneByUsername(rawUser.email);
     console.log(rawUser);
+    const {
+      id,
+      displayName,
+      email,
+      familyName,
+      givenName,
+      emailVerified,
+      avatar,
+      accessToken,
+    } = rawUser;
+    let user = await this.findOneByUsername(email);
     if (isNil(user)) {
       user = this.usersRepository.create({
-        username: rawUser.email,
-        nickname: rawUser.givenName,
+        username: email,
+        nickname: `${familyName}${givenName}`,
         passwordHash: "",
-        isVerified: rawUser.emailVerified,
-        avatar: rawUser.avatar,
+        isVerified: emailVerified,
+        avatar: avatar,
       });
       user = await this.usersRepository.save(user);
     }
-    let googleUser = await this.findGoogleUserOne(rawUser.id);
+    let googleUser = await this.findGoogleUserOne(id);
     if (isNil(googleUser)) {
       googleUser = this.googleUserRepository.create({
-        googleId: rawUser.id,
-        email: rawUser.email,
-        emailVerified: rawUser.emailVerified,
-        displayName: rawUser.displayName,
-        familyName: rawUser.familyName,
-        givenName: rawUser.givenName,
-        avatar: rawUser.avatar,
-        accessToken: rawUser.accessToken,
+        googleId: id,
+        email: email,
+        emailVerified: emailVerified,
+        displayName: displayName,
+        familyName: familyName,
+        givenName: givenName,
+        avatar: avatar,
+        accessToken: accessToken,
         user,
       });
       await this.googleUserRepository.save(googleUser);

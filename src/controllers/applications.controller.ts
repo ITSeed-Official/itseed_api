@@ -1,7 +1,7 @@
-import { Controller, Get, Res } from "@nestjs/common";
+import { Controller, Get, Patch, Res } from "@nestjs/common";
 import { Response } from "express";
 import { ApiTags } from "@nestjs/swagger";
-import { UsersService } from "src/modules";
+import { User, UserEntity, UsersService, Auth } from "src/modules";
 import { UserFilesService } from "src/modules/user-files/user-files.service";
 import { UserInterviewAnswersService } from "src/modules/user-interview-answers/user-interview-answers.service";
 import { UserSurveyAnswersService } from "src/modules/user-survey-answers/user-survey-answers.service";
@@ -17,9 +17,9 @@ export class ApplicationsController {
   ) {}
 
   @Get("me")
-  async getMine(@Res() response: Response) {
-    const userId = 1;
-    const user = await this.usersService.findOne(userId);
+  @Auth()
+  async getMine(@User() user: UserEntity, @Res() response: Response) {
+    const userId = user.id;
     const userSurveyAnswers = await this.userSurveyAnswersService.getUserSurvey(
       userId
     );
@@ -29,7 +29,7 @@ export class ApplicationsController {
 
     response.json({
       data: {
-        info: user,
+        info: user.getResponse(),
         survey: userSurveyAnswers,
         answer: userInterviewAnswers,
         files: userFiles,

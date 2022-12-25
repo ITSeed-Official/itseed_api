@@ -100,6 +100,12 @@ export class UserEntity {
       gender: this.gender,
       city: this.city,
       avatar: this.avatar ? this.avatar : null,
+      phone: this.phone,
+      school: this.school,
+      department: this.department,
+      grade: this.grade,
+      recommender: this.recommender,
+      referer: this.referer ? this.referer.split(",") : [],
     };
   }
 }
