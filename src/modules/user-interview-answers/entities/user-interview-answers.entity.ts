@@ -1,14 +1,11 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, Column, PrimaryColumn } from "typeorm";
 
 @Entity("user_interview_answers")
 export class UserInterviewAnswerEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
-
-  @Column()
+  @PrimaryColumn({ name: "userId" })
   userId: number;
 
-  @Column()
+  @PrimaryColumn({ name: "number" })
   number: number;
 
   @Column()

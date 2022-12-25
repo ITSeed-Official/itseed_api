@@ -4,6 +4,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { interviewQuestions, Question } from "./consts/const";
 import { UserInterviewAnswerEntity } from "./entities/user-interview-answers.entity";
+import { InterviewAnswer } from "../applications/dtos/update-application-payload.dto";
 
 @Injectable()
 export class UserInterviewAnswersService {
@@ -30,5 +31,23 @@ export class UserInterviewAnswersService {
 
       return interviewQuestion;
     });
+  }
+
+  async updateByUserId(userId: number, data: InterviewAnswer[]) {
+    const updateData = data.map((userInterviewAnswer) => {
+      return {
+        userId: userId,
+        ...userInterviewAnswer,
+      };
+    });
+
+    try {
+      await this.interviewRepository.upsert(updateData, {
+        conflictPaths: ["userId", "number"],
+        skipUpdateIfNoValuesChanged: true,
+      });
+    } catch (error) {
+      throw error;
+    }
   }
 }

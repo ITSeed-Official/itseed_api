@@ -95,7 +95,7 @@ export class UserEntity {
   getResponse(): ResponseUserDto {
     return {
       id: this.id,
-      username: this.username,
+      email: this.username,
       nickname: this.nickname,
       gender: this.gender,
       city: this.city,

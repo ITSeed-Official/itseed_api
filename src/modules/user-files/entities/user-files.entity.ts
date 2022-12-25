@@ -1,14 +1,11 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, Column, PrimaryColumn } from "typeorm";
 
 @Entity("user_files")
 export class UserFileEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
-
-  @Column()
+  @PrimaryColumn({ name: "userId" })
   userId: number;
 
-  @Column()
+  @PrimaryColumn({ name: "type" })
   type: string;
 
   @Column()

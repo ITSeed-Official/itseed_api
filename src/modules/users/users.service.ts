@@ -6,6 +6,7 @@ import { UpdateUserDto } from "./dto";
 import * as bcrypt from "bcryptjs";
 import { isNil } from "lodash";
 import { TransformedGoogleUser } from "../../common/dtos";
+import { UserInformation } from "../applications/dtos/update-application-payload.dto";
 
 @Injectable()
 export class UsersService {
@@ -25,9 +26,17 @@ export class UsersService {
     return passwordHash;
   }
 
-  async updateInfo(id: number, dto: UpdateUserDto) {
-    this.logger.debug(`User updated: ${id}`);
-    return this.usersRepository.update(id, dto);
+  async update(id: number, dto: UserInformation) {
+    const updateData = {
+      ...dto,
+      referer: dto.referer.join(","),
+    };
+
+    try {
+      await this.usersRepository.update(id, updateData);
+    } catch (error) {
+      throw error;
+    }
   }
 
   async updatePassword(id: number, password: string) {

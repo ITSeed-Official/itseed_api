@@ -6,7 +6,7 @@ export class ResponseUserDto {
   id: number;
 
   @ApiResponseProperty()
-  username: string;
+  email: string;
 
   @ApiResponseProperty()
   nickname: string;
