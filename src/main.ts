@@ -16,7 +16,7 @@ async function bootstrap() {
       process.env.NODE_ENV === "production"
         ? ["https://itseed.tw", "https://www.itseed.tw"]
         : process.env.NODE_ENV === "staging"
-        ? ["https://stage.itseed.tw"]
+        ? ["https://stage.itseed.tw", "http://localhost:3000"]
         : [
             "http://localhost:3000",
             "https://itseed.tw",
