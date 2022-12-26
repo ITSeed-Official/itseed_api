@@ -1,13 +1,14 @@
 import { S3 } from "aws-sdk";
 import { Logger, Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
-import md5 from "md5";
 import { FileUploadException } from "../../exceptions/file-upload.exceptions";
 import { isNil } from "lodash";
 import * as path from "path";
+import { CreateFilePayload } from "./dtos/create-file-payload.dto";
 
 export class UploadResult {
   location: string;
+  filePath: string;
 }
 
 interface S3UploadedResult {
@@ -23,13 +24,20 @@ export class FileUploadService {
     this.bucketS3 = configService.get<string>("AWS_S3_BUCKET");
   }
 
-  async uploadTestFile(file: Express.Multer.File): Promise<UploadResult> {
+  async execute(
+    file: Express.Multer.File,
+    userId: number,
+    dto: CreateFilePayload
+  ): Promise<UploadResult> {
     const { buffer, originalname, size } = file;
-    const uploadName =
-      md5(originalname + Date.now()) + path.extname(originalname);
-    const filepath = `test/${uploadName}`;
+    const uploadName = dto.type + path.extname(originalname);
+    const filepath = `${this.getFolderName()}/${userId}/${uploadName}`;
     this.logger.log(`uploadTestFile: filepath:${filepath}, size:${size}`);
     return this.upload(buffer, { filepath });
+  }
+
+  private getFolderName() {
+    return process.env.NODE_ENV === "production" ? "production" : "test";
   }
 
   private async upload(
@@ -51,6 +59,7 @@ export class FileUploadService {
       const cdnLocation = "";
       return {
         location: cdnLocation || s3Location,
+        filePath: filepath,
       };
     } catch (e) {
       throw new FileUploadException(e);

@@ -1,3 +1,4 @@
+import { ConfigService } from "@nestjs/config";
 import { Test, TestingModule } from "@nestjs/testing";
 import { getRepositoryToken } from "@nestjs/typeorm";
 import { UserFileEntity } from "./entities/user-files.entity";
@@ -5,6 +6,7 @@ import { UserFilesService } from "./user-files.service";
 
 describe("UserFilesService", () => {
   let service: UserFilesService;
+  const s3Url = "AWS_S3_URL";
 
   const mockUserFileRepo = {
     find: jest.fn(),
@@ -17,6 +19,17 @@ describe("UserFilesService", () => {
         {
           provide: getRepositoryToken(UserFileEntity),
           useValue: mockUserFileRepo,
+        },
+        {
+          provide: ConfigService,
+          useValue: {
+            get: jest.fn((key: string) => {
+              if (key === s3Url) {
+                return s3Url;
+              }
+              return null;
+            }),
+          },
         },
       ],
     }).compile();
@@ -69,11 +82,11 @@ describe("UserFilesService", () => {
       const userFiles = await service.getUserFiles(userId);
       expect(userFiles).toEqual({
         resume: {
-          path: "resume file path",
+          path: `${s3Url}resume file path`,
           name: "resume file name",
         },
         certification: {
-          path: "certification file path",
+          path: `${s3Url}certification file path`,
           name: "certification file name",
         },
       });

@@ -13,6 +13,7 @@ import {
   UsersController,
   HealthController,
   ApplicationsController,
+  FilesController,
 } from "./controllers";
 import { DatabaseLogger } from "./common/logger/DatabaseLogger";
 import { UserSurveyAnswersModule } from "./modules/user-survey-answers/user-survey-answers.module";
@@ -51,6 +52,7 @@ import { UserFilesModule } from "./modules/user-files/user-files.module";
     UsersController,
     HealthController,
     ApplicationsController,
+    FilesController,
   ],
 })
 export class AppModule {}

@@ -45,7 +45,74 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Get application",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "{{cookie}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/applications/me",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"applications",
+								"me"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "4980"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"1374-8k4Sxcc1y4s81zpSunpTWefKpd8\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 26 Dec 2022 15:15:11 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": {\n        \"info\": {\n            \"id\": 4,\n            \"email\": \"b123105@gmail.com\",\n            \"nickname\": \"薛翔文\",\n            \"gender\": \"male\",\n            \"city\": null,\n            \"avatar\": \"https://lh3.googleusercontent.com/a/AEdFTp6cKOMQQeJNB0AKxTsdammRQQbH1grNcWV_922G=s96-c\",\n            \"phone\": \"0912345678\",\n            \"school\": \"資種大學\",\n            \"department\": \"資種學系\",\n            \"grade\": 2,\n            \"recommender\": \"陳建宇\",\n            \"referer\": [\n                \"google\",\n                \"facebook\"\n            ]\n        },\n        \"survey\": [\n            {\n                \"number\": 1,\n                \"title\": \"在同事（同學）眼中您是一位？\",\n                \"options\": [\n                    {\n                        \"number\": 1,\n                        \"description\": \"積極、熱情、有行動力的人\"\n                    },\n                    {\n                        \"number\": 2,\n                        \"description\": \"活潑、開朗、風趣幽默的人\"\n                    },\n                    {\n                        \"number\": 3,\n                        \"description\": \"忠誠、隨和、容易相處的人。\"\n                    },\n                    {\n                        \"number\": 4,\n                        \"description\": \"謹慎、冷靜、注意細節的人\"\n                    }\n                ],\n                \"answer\": 1\n            },\n            {\n                \"number\": 2,\n                \"title\": \"您喜歡看哪一類型的雜誌？\",\n                \"options\": [\n                    {\n                        \"number\": 1,\n                        \"description\": \"管理、財經、趨勢類\"\n                    },\n                    {\n                        \"number\": 2,\n                        \"description\": \"旅遊、美食、時尚類\"\n                    },\n                    {\n                        \"number\": 3,\n                        \"description\": \"心靈、散文、家庭類\"\n                    },\n                    {\n                        \"number\": 4,\n                        \"description\": \"科技、專業、藝術類\"\n                    }\n                ],\n                \"answer\": null\n            },\n            {\n                \"number\": 3,\n                \"title\": \"您做決策的方式？\",\n                \"options\": [\n                    {\n                        \"number\": 1,\n                        \"description\": \"希望能立即有效\"\n                    },\n                    {\n                        \"number\": 2,\n                        \"description\": \"感覺重於一切\"\n                    },\n                    {\n                        \"number\": 3,\n                        \"description\": \"有一定的消費習慣，不太喜歡變化\"\n                    },\n                    {\n                        \"number\": 4,\n                        \"description\": \"較注意東西好不好，較有成本觀念\"\n                    }\n                ],\n                \"answer\": null\n            },\n            {\n                \"number\": 4,\n                \"title\": \"職務上哪種工作是我最擅長的？\",\n                \"options\": [\n                    {\n                        \"number\": 1,\n                        \"description\": \"以目標為導向，有不服輸的精神\"\n                    },\n                    {\n                        \"number\": 2,\n                        \"description\": \"良好的口才，能主動的與人建立友善關係\"\n                    },\n                    {\n                        \"number\": 3,\n                        \"description\": \"能配合團隊，扮演忠誠的擁護者\"\n                    },\n                    {\n                        \"number\": 4,\n                        \"description\": \"流程的掌握，注意到細節\"\n                    }\n                ],\n                \"answer\": null\n            },\n            {\n                \"number\": 5,\n                \"title\": \"當面對壓力時，您會？\",\n                \"options\": [\n                    {\n                        \"number\": 1,\n                        \"description\": \"用行動力去面對它，並且克服它\"\n                    },\n                    {\n                        \"number\": 2,\n                        \"description\": \"希望找人傾吐，獲得認同\"\n                    },\n                    {\n                        \"number\": 3,\n                        \"description\": \"逆來順受，儘量避免衝突\"\n                    },\n                    {\n                        \"number\": 4,\n                        \"description\": \"重新思考緣由，必要時做精細的解說\"\n                    }\n                ],\n                \"answer\": null\n            },\n            {\n                \"number\": 6,\n                \"title\": \"與同事（同學）之間的相處？\",\n                \"options\": [\n                    {\n                        \"number\": 1,\n                        \"description\": \"以公事為主，很少談到個人生活\"\n                    },\n                    {\n                        \"number\": 2,\n                        \"description\": \"重視氣氛，能夠帶動團隊情趣\"\n                    },\n                    {\n                        \"number\": 3,\n                        \"description\": \"良好的傾聽者，對人態度溫和友善\"\n                    },\n                    {\n                        \"number\": 4,\n                        \"description\": \"被動，不會主動與人建立關係\"\n                    }\n                ],\n                \"answer\": null\n            },\n            {\n                \"number\": 7,\n                \"title\": \"您希望別人如何與您溝通？\",\n                \"options\": [\n                    {\n                        \"number\": 1,\n                        \"description\": \"直接講重點，不要拐彎抹角\"\n                    },\n                    {\n                        \"number\": 2,\n                        \"description\": \"輕鬆，不要太嚴肅\"\n                    },\n                    {\n                        \"number\": 3,\n                        \"description\": \"不要一次說太多，要給予明確的支持\"\n                    },\n                    {\n                        \"number\": 4,\n                        \"description\": \"凡事說清楚，講明白\"\n                    }\n                ],\n                \"answer\": null\n            },\n            {\n                \"number\": 8,\n                \"title\": \"要完成一件事情時，您最在意的部份是？\",\n                \"options\": [\n                    {\n                        \"number\": 1,\n                        \"description\": \"效果是否有達到\"\n                    },\n                    {\n                        \"number\": 2,\n                        \"description\": \"過程是否快樂\"\n                    },\n                    {\n                        \"number\": 3,\n                        \"description\": \"前後是否有改變\"\n                    },\n                    {\n                        \"number\": 4,\n                        \"description\": \"流程是否正確\"\n                    }\n                ],\n                \"answer\": null\n            },\n            {\n                \"number\": 9,\n                \"title\": \"什麼事情會讓您恐懼？\",\n                \"options\": [\n                    {\n                        \"number\": 1,\n                        \"description\": \"呈現弱點，被人利用\"\n                    },\n                    {\n                        \"number\": 2,\n                        \"description\": \"失去認同，被人排擠\"\n                    },\n                    {\n                        \"number\": 3,\n                        \"description\": \"過度變動，讓人無所適從\"\n                    },\n                    {\n                        \"number\": 4,\n                        \"description\": \"制度不清，標準不一\"\n                    }\n                ],\n                \"answer\": null\n            },\n            {\n                \"number\": 10,\n                \"title\": \"哪些是您自覺的缺點？\",\n                \"options\": [\n                    {\n                        \"number\": 1,\n                        \"description\": \"沒有耐心\"\n                    },\n                    {\n                        \"number\": 2,\n                        \"description\": \"欠缺細心\"\n                    },\n                    {\n                        \"number\": 3,\n                        \"description\": \"沒有主見\"\n                    },\n                    {\n                        \"number\": 4,\n                        \"description\": \"欠缺風趣\"\n                    }\n                ],\n                \"answer\": null\n            }\n        ],\n        \"answer\": [\n            {\n                \"number\": 1,\n                \"title\": \"你為什麼想報名資訊種子呢？你希望資訊種子為你帶來什麼幫助？（限 300 字內）\",\n                \"answer\": \"試試看\"\n            },\n            {\n                \"number\": 2,\n                \"title\": \"你認為什麼是 Giver？你曾經擔任過嗎？（限 300 字以內）\",\n                \"answer\": \"\"\n            },\n            {\n                \"number\": 3,\n                \"title\": \"如果你成功入選 20 屆資訊種子培訓計畫，請問你認為自身能為該屆培訓計畫帶來什麼改變？（限 300 字內）\",\n                \"answer\": \"\"\n            },\n            {\n                \"number\": 4,\n                \"title\": \"請問假如你成功加入資種，未來一年會如何規劃時間？請以「小時」為時間單位進行一週的時間規劃。（限 200 字內）\",\n                \"answer\": \"\"\n            },\n            {\n                \"number\": 5,\n                \"title\": \"假設你成功加入資訊種子，你將與六位陌生的組員組成團隊，執行第一個專案「TUV」，你期望自己在小組中扮演什麼角色並說明原因（限 500 字內）\",\n                \"answer\": \"\"\n            },\n            {\n                \"number\": 6,\n                \"title\": \"請從過去的經歷中挑選一項你認為失敗的團隊經驗？如果重來一次，你會怎麼做？為什麼？（限 500 字內）\",\n                \"answer\": \"\"\n            }\n        ],\n        \"files\": {\n            \"certification\": {\n                \"path\": \"https://staging-itseed-official.s3.amazonaws.com/test/4/certification.png\",\n                \"name\": \"SMPTE_Color_Bars.svg.png\"\n            },\n            \"resume\": {\n                \"path\": \"https://staging-itseed-official.s3.amazonaws.com/test/4/resume.png\",\n                \"name\": \"SMPTE_Color_Bars.svg.png\"\n            }\n        }\n    }\n}"
+				}
+			]
 		},
 		{
 			"name": "PUT {{host}}/applications/me",
@@ -60,7 +127,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"data\": {\n        \"info\": {\n            \"nickname\": \"薛翔文\",\n            \"gender\": \"male\",\n            \"phone\": \"0912345678\",\n            \"school\": \"資種大學\",\n            \"department\": \"資種學系\",\n            \"grade\": 2,\n            \"recommender\": \"陳建宇\",\n            \"referer\": [\n                \"google\",\n                \"facebook\"\n            ]\n        },\n        \"survey\": [\n            {\n                \"number\": 1,\n                \"answerNumber\": 1\n            }\n        ],\n        \"answer\": [\n            {\n                \"number\": 1,\n                \"answer\": \"試試看\"\n            }\n        ],\n        \"files\": {\n            \"resume\": {\n                \"path\": \"/12312\",\n                \"name\": \"file name\"\n            },\n            \"certification\": {\n                \"path\": \"/12312\",\n                \"name\": \"file name\"\n            }\n        }\n    }\n}",
+					"raw": "{\n    \"data\": {\n        \"info\": {\n            \"nickname\": \"薛翔文\",\n            \"gender\": \"male\",\n            \"phone\": \"0912345678\",\n            \"school\": \"資種大學\",\n            \"department\": \"資種學系\",\n            \"grade\": 2,\n            \"recommender\": \"陳建宇\",\n            \"referer\": [\n                \"google\",\n                \"facebook\"\n            ]\n        },\n        \"survey\": [\n            {\n                \"number\": 1,\n                \"answerNumber\": 1\n            }\n        ],\n        \"answer\": [\n            {\n                \"number\": 1,\n                \"answer\": \"試試看\"\n            }\n        ],\n        \"files\": {\n            \"resume\": {\n                \"path\": \"test/4/resume.png\",\n                \"name\": \"SMPTE_Color_Bars.svg.png\"\n            },\n            \"certification\": {\n                \"path\": \"test/4/certification.png\",\n                \"name\": \"SMPTE_Color_Bars.svg.png\"\n            }\n        }\n    }\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -79,6 +146,205 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "POST {{host}}/files",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "{{cookie}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/Users/alanhsueh/Downloads/Blue_merle_koolie_short_coat_heading_sheep.jpeg"
+						},
+						{
+							"key": "type",
+							"value": "resume",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{host}}/files",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"files"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Upload certification file",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "{{cookie}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/alanhsueh/Downloads/Blue_merle_koolie_short_coat_heading_sheep.jpeg"
+								},
+								{
+									"key": "type",
+									"value": "certification",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/files",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"files"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "78"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"4e-IDKzSQFDixVXGnaAlcqLYZ+4EmQ\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 26 Dec 2022 15:14:48 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": {\n        \"path\": \"test/4/certification.png\",\n        \"name\": \"SMPTE_Color_Bars.svg.png\"\n    }\n}"
+				},
+				{
+					"name": "Upload resume file",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "{{cookie}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/alanhsueh/Downloads/Blue_merle_koolie_short_coat_heading_sheep.jpeg"
+								},
+								{
+									"key": "type",
+									"value": "resume",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/files",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"files"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "95"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"5f-xbzo04NFm1vOHYKr34gxcq5VpAg\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 26 Dec 2022 15:17:33 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": {\n        \"path\": \"test/4/resume.jpeg\",\n        \"name\": \"Blue_merle_koolie_short_coat_heading_sheep.jpeg\"\n    }\n}"
+				}
+			]
 		}
 	]
 }
