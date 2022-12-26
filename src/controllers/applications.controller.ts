@@ -8,7 +8,7 @@ import { UserSurveyAnswersService } from "src/modules/user-survey-answers/user-s
 import { UpdateApplicationPayload } from "src/modules/applications/dtos/update-application-payload.dto";
 import { isNil } from "lodash";
 
-@ApiTags("auth")
+@ApiTags("applications")
 @Controller("applications")
 export class ApplicationsController {
   constructor(
