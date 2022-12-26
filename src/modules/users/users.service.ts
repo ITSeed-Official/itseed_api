@@ -2,7 +2,6 @@ import { Injectable, Logger } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { UserEntity, GoogleUserEntity } from "./entities";
-import { UpdateUserDto } from "./dto";
 import * as bcrypt from "bcryptjs";
 import { isNil } from "lodash";
 import { TransformedGoogleUser } from "../../common/dtos";
