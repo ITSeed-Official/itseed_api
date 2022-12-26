@@ -17,14 +17,14 @@ export interface UserFiles {
 
 @Injectable()
 export class UserFilesService {
-  private readonly s3Url: string;
+  private readonly awsUrl: string;
 
   constructor(
     @InjectRepository(UserFileEntity)
     private readonly userFileRepository: Repository<UserFileEntity>,
     private readonly configService: ConfigService
   ) {
-    this.s3Url = this.configService.get<string>("AWS_S3_URL");
+    this.awsUrl = this.configService.get<string>("AWS_CLOUDFRONT");
   }
 
   async getUserFiles(userId: number): Promise<UserFiles> {
@@ -38,7 +38,7 @@ export class UserFilesService {
 
     userFiles.forEach((userFile) => {
       userFilesHash[userFile.type] = {
-        path: `${this.s3Url}${userFile.path}`,
+        path: `${this.awsUrl}${userFile.path}`,
         name: userFile.name,
       };
     });

@@ -6,7 +6,7 @@ import { UserFilesService } from "./user-files.service";
 
 describe("UserFilesService", () => {
   let service: UserFilesService;
-  const s3Url = "AWS_S3_URL";
+  const awsUrl = "AWS_CLOUDFRONT";
 
   const mockUserFileRepo = {
     find: jest.fn(),
@@ -24,8 +24,8 @@ describe("UserFilesService", () => {
           provide: ConfigService,
           useValue: {
             get: jest.fn((key: string) => {
-              if (key === s3Url) {
-                return s3Url;
+              if (key === awsUrl) {
+                return awsUrl;
               }
               return null;
             }),
@@ -82,11 +82,11 @@ describe("UserFilesService", () => {
       const userFiles = await service.getUserFiles(userId);
       expect(userFiles).toEqual({
         resume: {
-          path: `${s3Url}resume file path`,
+          path: `${awsUrl}resume file path`,
           name: "resume file name",
         },
         certification: {
-          path: `${s3Url}certification file path`,
+          path: `${awsUrl}certification file path`,
           name: "certification file name",
         },
       });

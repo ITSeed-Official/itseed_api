@@ -21,7 +21,7 @@ export class FileUploadService {
   private readonly bucketS3: string;
   private readonly cdnHost: string;
   constructor(private configService: ConfigService) {
-    this.bucketS3 = configService.get<string>("AWS_S3_BUCKET");
+    this.bucketS3 = configService.get<string>("AWS_CLOUDFRONT");
   }
 
   async execute(
