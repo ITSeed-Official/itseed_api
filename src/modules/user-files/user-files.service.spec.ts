@@ -49,18 +49,20 @@ describe("UserFilesService", () => {
         .mockImplementation((): UserFileEntity[] => {
           return [
             {
-              id: 1,
               userId: 1,
               type: "resume",
               path: "resume file path",
               name: "resume file name",
+              createdAt: new Date(),
+              updatedAt: new Date(),
             },
             {
-              id: 2,
               userId: 1,
               type: "certification",
               path: "certification file path",
               name: "certification file name",
+              createdAt: new Date(),
+              updatedAt: new Date(),
             },
           ];
         });
