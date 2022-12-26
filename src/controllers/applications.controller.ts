@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Put, Res } from "@nestjs/common";
 import { Response } from "express";
-import { ApiBody, ApiTags } from "@nestjs/swagger";
+import { ApiBody, ApiHeader, ApiTags } from "@nestjs/swagger";
 import { User, UserEntity, UsersService, Auth } from "src/modules";
 import { UserFilesService } from "src/modules/user-files/user-files.service";
 import { UserInterviewAnswersService } from "src/modules/user-interview-answers/user-interview-answers.service";
@@ -19,6 +19,10 @@ export class ApplicationsController {
   ) {}
 
   @Auth()
+  @ApiHeader({
+    name: "Cookie",
+    description: "Try to set cookie.",
+  })
   @Get("me")
   async getMine(@User() user: UserEntity, @Res() response: Response) {
     const userId = user.id;
@@ -41,6 +45,10 @@ export class ApplicationsController {
 
   @Auth()
   @ApiBody({ type: UpdateApplicationPayload })
+  @ApiHeader({
+    name: "Cookie",
+    description: "Try to set cookie.",
+  })
   @Put("me")
   async update(
     @User() user: UserEntity,
