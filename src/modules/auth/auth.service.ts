@@ -13,18 +13,18 @@ export class AuthService {
     private readonly jwtService: JwtService
   ) {}
 
-  createToken({ id, username, scope }: JwtPayload): {
+  createToken({ id, email, scope }: JwtPayload): {
     access_token: string;
     refresh_token: string;
   } {
-    const accessToken: JwtPayload = { id, username };
+    const accessToken: JwtPayload = { id, email };
     if (scope) {
       accessToken.scope = scope;
     }
     return {
       access_token: this.jwtService.sign(accessToken, { expiresIn: "1d" }),
       refresh_token: this.jwtService.sign(
-        { id, username, isRefreshToken: true },
+        { id, email, isRefreshToken: true },
         { expiresIn: "2d" }
       ),
     };

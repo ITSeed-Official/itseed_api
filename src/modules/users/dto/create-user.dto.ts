@@ -13,7 +13,7 @@ import { Gender } from "../enum";
 export class CreateUserDto {
   @IsEmail({}, { message: "請填入信箱作為你的帳號" })
   @ApiProperty({ default: "unique@example.com" })
-  readonly username: string;
+  readonly email: string;
 
   @ApiProperty({ default: "12345678", minLength: 8 })
   @IsString()

@@ -1,6 +1,6 @@
 export class JwtPayload {
   id: number;
-  username: string;
+  email: string;
   isRefreshToken?: boolean;
   scope?: {
     resetPassword: boolean;

@@ -117,10 +117,10 @@ export class UsersService {
       avatar,
       accessToken,
     } = rawUser;
-    let user = await this.findOneByUsername(email);
+    let user = await this.findOneByEmail(email);
     if (isNil(user)) {
       user = this.usersRepository.create({
-        username: email,
+        email: email,
         nickname: `${familyName}${givenName}`,
         passwordHash: "",
         isVerified: emailVerified,
@@ -154,7 +154,7 @@ export class UsersService {
     });
   }
 
-  async findOneByUsername(username: string): Promise<UserEntity> {
-    return this.usersRepository.findOne({ username });
+  async findOneByEmail(email: string): Promise<UserEntity> {
+    return this.usersRepository.findOne({ email });
   }
 }

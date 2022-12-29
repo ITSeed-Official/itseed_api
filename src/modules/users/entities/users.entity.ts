@@ -15,7 +15,7 @@ export class UserEntity {
   id: number;
 
   @Column({ unique: true })
-  username: string;
+  email: string;
 
   @Exclude()
   @Column()
@@ -95,7 +95,7 @@ export class UserEntity {
   getResponse(): ResponseUserDto {
     return {
       id: this.id,
-      email: this.username,
+      email: this.email,
       nickname: this.nickname,
       gender: this.gender,
       city: this.city,
