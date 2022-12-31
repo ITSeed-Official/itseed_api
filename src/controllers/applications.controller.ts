@@ -59,13 +59,13 @@ export class ApplicationsController {
 
     const { info, survey, answer, files } = dto?.data;
 
-    if (!isNil(info)) {
-      await this.usersService.update(userId, info);
+    if (!isNil(survey)) {
+      await this.userSurveyAnswersService.updateByUserId(userId, survey);
       targetStep = 1;
     }
 
-    if (!isNil(survey)) {
-      await this.userSurveyAnswersService.updateByUserId(userId, survey);
+    if (!isNil(info)) {
+      await this.usersService.update(userId, info);
       targetStep = 2;
     }
 
