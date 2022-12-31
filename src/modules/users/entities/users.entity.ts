@@ -51,6 +51,9 @@ export class UserEntity {
   @Column({ type: "varchar", nullable: true })
   referer: string;
 
+  @Column({ type: "smallint", default: 0 })
+  step: number;
+
   @Exclude()
   @Column({ default: false })
   isVerified: boolean;

@@ -55,23 +55,30 @@ export class ApplicationsController {
     @Body() dto: UpdateApplicationPayload
   ) {
     const userId = user.id;
+    let targetStep = 0;
 
     const { info, survey, answer, files } = dto?.data;
 
     if (!isNil(info)) {
       await this.usersService.update(userId, info);
+      targetStep = 1;
     }
 
     if (!isNil(survey)) {
       await this.userSurveyAnswersService.updateByUserId(userId, survey);
+      targetStep = 2;
     }
 
     if (!isNil(answer)) {
       await this.userInterviewAnswersService.updateByUserId(userId, answer);
+      targetStep = 3;
     }
 
     if (!isNil(files)) {
       await this.userFilesService.updateByUserId(userId, files);
+      targetStep = 4;
     }
+
+    await this.usersService.calculateSteps(userId, targetStep);
   }
 }
