@@ -109,6 +109,7 @@ export class UserEntity {
       grade: this.grade,
       recommender: this.recommender,
       referer: this.referer ? this.referer.split(",") : [],
+      step: this.step,
     };
   }
 }

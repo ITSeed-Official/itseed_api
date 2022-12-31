@@ -37,4 +37,7 @@ export class ResponseUserDto {
 
   @ApiResponseProperty()
   referer: string[];
+
+  @ApiResponseProperty()
+  step: number;
 }
