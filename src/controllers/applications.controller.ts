@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Put, Res } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Get,
+  HttpException,
+  HttpStatus,
+  Put,
+  Res,
+} from "@nestjs/common";
 import { Response } from "express";
 import { ApiBody, ApiHeader, ApiTags } from "@nestjs/swagger";
 import { User, UserEntity, UsersService, Auth } from "src/modules";
@@ -56,27 +64,48 @@ export class ApplicationsController {
   ) {
     const userId = user.id;
     let targetStep = 0;
+    let errorMessage = "";
 
     const { info, survey, answer, files } = dto?.data;
 
     if (!isNil(survey)) {
       await this.userSurveyAnswersService.updateByUserId(userId, survey);
-      targetStep = 1;
+      if (await this.userSurveyAnswersService.isComplete(userId)) {
+        targetStep = 1;
+      } else {
+        errorMessage = "survey is not complete";
+      }
     }
 
     if (!isNil(info)) {
       await this.usersService.update(userId, info);
-      targetStep = 2;
+      if (await this.usersService.isComplete(userId)) {
+        targetStep = 2;
+      } else {
+        errorMessage = "user information is not complete";
+      }
     }
 
     if (!isNil(answer)) {
       await this.userInterviewAnswersService.updateByUserId(userId, answer);
-      targetStep = 3;
+      if (await this.userInterviewAnswersService.isComplete(userId)) {
+        targetStep = 3;
+      } else {
+        errorMessage = "interview question is not complete";
+      }
     }
 
     if (!isNil(files)) {
       await this.userFilesService.updateByUserId(userId, files);
-      targetStep = 4;
+      if (await this.userFilesService.isComplete(userId)) {
+        targetStep = 4;
+      } else {
+        errorMessage = "interview question is not complete";
+      }
+    }
+
+    if (errorMessage) {
+      throw new HttpException(errorMessage, HttpStatus.BAD_REQUEST);
     }
 
     await this.usersService.calculateSteps(userId, targetStep);

@@ -167,4 +167,30 @@ export class UsersService {
 
     await this.usersRepository.update(id, { step: targetStep });
   }
+
+  async isComplete(id: number): Promise<boolean> {
+    const user = await this.usersRepository.findOne(id);
+
+    if (isNil(user.nickname)) {
+      return false;
+    }
+
+    if (isNil(user.gender)) {
+      return false;
+    }
+
+    if (isNil(user.school)) {
+      return false;
+    }
+
+    if (isNil(user.department)) {
+      return false;
+    }
+
+    if (isNil(user.grade)) {
+      return false;
+    }
+
+    return true;
+  }
 }

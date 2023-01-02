@@ -50,4 +50,28 @@ export class UserInterviewAnswersService {
       throw error;
     }
   }
+
+  async isComplete(userId: number): Promise<boolean> {
+    const interviewAnswers = await this.interviewRepository.find({
+      where: {
+        userId: userId,
+      },
+    });
+
+    const unCompleteQuestion = interviewQuestions.find(
+      (interviewQuestion: Question) => {
+        const answer = interviewAnswers.find((answer) => {
+          return interviewQuestion.number === answer.number;
+        });
+
+        if (_.isNil(answer)) {
+          return true;
+        }
+
+        return false;
+      }
+    );
+
+    return _.isNil(unCompleteQuestion) ? true : false;
+  }
 }

@@ -70,4 +70,18 @@ export class UserFilesService {
       throw error;
     }
   }
+
+  async isComplete(userId: number): Promise<boolean> {
+    const userFiles = await this.userFileRepository.find({
+      where: {
+        userId: userId,
+      },
+    });
+
+    const files = userFiles.filter((userFile) =>
+      ["resume", "certification"].includes(userFile.type)
+    );
+
+    return files.length === 2 ? true : false;
+  }
 }
