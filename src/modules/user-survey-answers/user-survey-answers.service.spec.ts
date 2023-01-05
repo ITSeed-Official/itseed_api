@@ -2,12 +2,15 @@ import { Test, TestingModule } from "@nestjs/testing";
 import { UserSurveyAnswersService } from "./user-survey-answers.service";
 import { getRepositoryToken } from "@nestjs/typeorm";
 import { UserSurveyAnswerEntity } from "./entities/user-survey-answers.entity";
+import { SurveyAnswer } from "../applications/dtos/update-application-payload.dto";
 
 describe("UserSurveyAnswersService", () => {
   let service: UserSurveyAnswersService;
+  const userId = 1;
 
   const mockSurveyRepo = {
     find: jest.fn(),
+    upsert: jest.fn(),
   };
 
   beforeEach(async () => {
@@ -28,37 +31,67 @@ describe("UserSurveyAnswersService", () => {
     expect(service).toBeDefined();
   });
 
-  describe("when the user has not filled in the information", () => {
-    it("should get questions but it does not have answers", async () => {
-      jest.spyOn(mockSurveyRepo, "find").mockImplementation(() => {
-        return [];
+  describe("#getUserSurvey", () => {
+    describe("when the user has not filled in the information", () => {
+      it("should get questions but it does not have answers", async () => {
+        jest.spyOn(mockSurveyRepo, "find").mockImplementation(() => {
+          return [];
+        });
+
+        const surveys = await service.getUserSurvey(1);
+
+        surveys.forEach((question) => {
+          expect(question.answer).toBe(null);
+        });
       });
+    });
 
-      const surveys = await service.getUserSurvey(1);
+    describe("when the user has filled in the information", () => {
+      it("should get questions and their answers", async () => {
+        const questionNumber = 1;
+        const answerNumber = 1;
 
-      surveys.forEach((question) => {
-        expect(question.answer).toBe(null);
+        jest.spyOn(mockSurveyRepo, "find").mockImplementation(() => {
+          return [generateAnswer(userId, questionNumber, answerNumber)];
+        });
+
+        const surveys = await service.getUserSurvey(userId);
+
+        const question = surveys.find((question) => {
+          return question.number === questionNumber;
+        });
+
+        expect(question.answer).toBe(answerNumber);
       });
     });
   });
 
-  describe("when the user has filled in the information", () => {
-    it("should get questions and their answers", async () => {
-      const userId = 1;
-      const questionNumber = 1;
-      const answerNumber = 1;
+  describe("#updateByUserId", () => {
+    const dto: SurveyAnswer[] = [
+      {
+        number: 1,
+        answerNumber: 3,
+      },
+    ];
 
-      jest.spyOn(mockSurveyRepo, "find").mockImplementation(() => {
-        return [generateAnswer(userId, questionNumber, answerNumber)];
-      });
+    it("should update survey answer by user ID and question number", async () => {
+      jest
+        .spyOn(mockSurveyRepo, "upsert")
+        .mockImplementation((updateData, options) => {
+          expect(updateData).toEqual([
+            {
+              userId: userId,
+              number: 1,
+              answerNumber: 3,
+            },
+          ]);
+          expect(options).toEqual({
+            conflictPaths: ["userId", "number"],
+            skipUpdateIfNoValuesChanged: true,
+          });
+        });
 
-      const surveys = await service.getUserSurvey(userId);
-
-      const question = surveys.find((question) => {
-        return question.number === questionNumber;
-      });
-
-      expect(question.answer).toBe(answerNumber);
+      await service.updateByUserId(userId, dto);
     });
   });
 });
