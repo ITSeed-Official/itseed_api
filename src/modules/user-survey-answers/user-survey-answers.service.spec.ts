@@ -93,6 +93,19 @@ describe("UserSurveyAnswersService", () => {
 
       await service.updateByUserId(userId, dto);
     });
+
+    it("should throw exception when repo went wrong", async () => {
+      jest.spyOn(mockSurveyRepo, "upsert").mockImplementation(() => {
+        throw new Error("test error");
+      });
+
+      try {
+        await service.updateByUserId(userId, dto);
+      } catch (error) {
+        expect(error).toBeInstanceOf(Error);
+        expect(error.message).toBe("test error");
+      }
+    });
   });
 });
 
