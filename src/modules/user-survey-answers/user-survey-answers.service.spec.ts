@@ -3,6 +3,7 @@ import { UserSurveyAnswersService } from "./user-survey-answers.service";
 import { getRepositoryToken } from "@nestjs/typeorm";
 import { UserSurveyAnswerEntity } from "./entities/user-survey-answers.entity";
 import { SurveyAnswer } from "../applications/dtos/update-application-payload.dto";
+import { surveyQuestions } from "./consts/const";
 
 describe("UserSurveyAnswersService", () => {
   let service: UserSurveyAnswersService;
@@ -105,6 +106,35 @@ describe("UserSurveyAnswersService", () => {
         expect(error).toBeInstanceOf(Error);
         expect(error.message).toBe("test error");
       }
+    });
+  });
+
+  describe("#isComplete", () => {
+    describe("when all questions have answers", () => {
+      it("should return true", async () => {
+        const answers = surveyQuestions.map((question) => {
+          return generateAnswer(userId, question.number, 1);
+        });
+
+        jest.spyOn(mockSurveyRepo, "find").mockImplementation(() => {
+          return answers;
+        });
+
+        const result = await service.isComplete(userId);
+        expect(result).toBe(true);
+      });
+    });
+    describe("when some questions do not have answers", () => {
+      it("should return false", async () => {
+        const answers = [generateAnswer(userId, 1, 1)];
+
+        jest.spyOn(mockSurveyRepo, "find").mockImplementation(() => {
+          return answers;
+        });
+
+        const result = await service.isComplete(userId);
+        expect(result).toBe(false);
+      });
     });
   });
 });
