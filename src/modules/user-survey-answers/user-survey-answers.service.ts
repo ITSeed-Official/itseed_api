@@ -5,6 +5,7 @@ import { Repository } from "typeorm";
 import { UserSurveyAnswerEntity } from "./entities/user-survey-answers.entity";
 import { surveyQuestions, Question } from "./consts/const";
 import { SurveyAnswer } from "../applications/dtos/update-application-payload.dto";
+import { SurveyResult } from "./enums";
 
 @Injectable()
 export class UserSurveyAnswersService {
@@ -71,5 +72,31 @@ export class UserSurveyAnswersService {
     });
 
     return _.isNil(unCompleteQuestion) ? true : false;
+  }
+
+  async getSurveyResult(userId: number): Promise<SurveyResult> {
+    const answers: UserSurveyAnswerEntity[] = await this.surveyRepository.find({
+      where: {
+        userId: userId,
+      },
+    });
+
+    const maxAnswerNumber = _(answers)
+      .map("answerNumber")
+      .countBy()
+      .entries()
+      .maxBy(_.last)
+      .shift();
+
+    switch (_.toNumber(maxAnswerNumber)) {
+      case 1:
+        return SurveyResult.D;
+      case 2:
+        return SurveyResult.I;
+      case 3:
+        return SurveyResult.S;
+      case 4:
+        return SurveyResult.C;
+    }
   }
 }
