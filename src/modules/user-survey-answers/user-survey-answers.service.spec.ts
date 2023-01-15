@@ -4,6 +4,7 @@ import { getRepositoryToken } from "@nestjs/typeorm";
 import { UserSurveyAnswerEntity } from "./entities/user-survey-answers.entity";
 import { SurveyAnswer } from "../applications/dtos/update-application-payload.dto";
 import { surveyQuestions } from "./consts/const";
+import { SurveyResult } from "./enums";
 
 describe("UserSurveyAnswersService", () => {
   let service: UserSurveyAnswersService;
@@ -124,6 +125,7 @@ describe("UserSurveyAnswersService", () => {
         expect(result).toBe(true);
       });
     });
+
     describe("when some questions do not have answers", () => {
       it("should return false", async () => {
         const answers = [generateAnswer(userId, 1, 1)];
@@ -134,6 +136,76 @@ describe("UserSurveyAnswersService", () => {
 
         const result = await service.isComplete(userId);
         expect(result).toBe(false);
+      });
+    });
+  });
+
+  describe("#getSurveyResult", () => {
+    describe("when the option 1 answered most times", () => {
+      it("should return result D", async () => {
+        const answers = [
+          generateAnswer(userId, 1, 1),
+          generateAnswer(userId, 2, 1),
+          generateAnswer(userId, 3, 2),
+        ];
+
+        jest.spyOn(mockSurveyRepo, "find").mockImplementation(() => {
+          return answers;
+        });
+
+        const result = await service.getSurveyResult(userId);
+        expect(result).toBe(SurveyResult.D);
+      });
+    });
+
+    describe("when the option 2 answered most times", () => {
+      it("should return result I", async () => {
+        const answers = [
+          generateAnswer(userId, 1, 2),
+          generateAnswer(userId, 2, 2),
+          generateAnswer(userId, 3, 3),
+        ];
+
+        jest.spyOn(mockSurveyRepo, "find").mockImplementation(() => {
+          return answers;
+        });
+
+        const result = await service.getSurveyResult(userId);
+        expect(result).toBe(SurveyResult.I);
+      });
+    });
+
+    describe("when the option 3 answered most times", () => {
+      it("should return result S", async () => {
+        const answers = [
+          generateAnswer(userId, 1, 3),
+          generateAnswer(userId, 2, 3),
+          generateAnswer(userId, 3, 1),
+        ];
+
+        jest.spyOn(mockSurveyRepo, "find").mockImplementation(() => {
+          return answers;
+        });
+
+        const result = await service.getSurveyResult(userId);
+        expect(result).toBe(SurveyResult.S);
+      });
+    });
+
+    describe("when the option 4 answered most times", () => {
+      it("should return result D", async () => {
+        const answers = [
+          generateAnswer(userId, 1, 4),
+          generateAnswer(userId, 2, 4),
+          generateAnswer(userId, 3, 1),
+        ];
+
+        jest.spyOn(mockSurveyRepo, "find").mockImplementation(() => {
+          return answers;
+        });
+
+        const result = await service.getSurveyResult(userId);
+        expect(result).toBe(SurveyResult.C);
       });
     });
   });
