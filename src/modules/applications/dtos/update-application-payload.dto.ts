@@ -64,7 +64,7 @@ export class SurveyAnswer {
   @ApiProperty({ default: 1 })
   @IsInt()
   @Min(1)
-  @Max(4)
+  @Max(10)
   readonly number: number;
 
   @ApiProperty({ default: 1 })
@@ -78,7 +78,7 @@ export class InterviewAnswer {
   @ApiProperty({ default: 1 })
   @IsInt()
   @Min(1)
-  @Max(4)
+  @Max(6)
   readonly number: number;
 
   @ApiProperty({ default: "我的回答" })
