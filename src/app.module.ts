@@ -19,6 +19,8 @@ import { DatabaseLogger } from "./common/logger/DatabaseLogger";
 import { UserSurveyAnswersModule } from "./modules/user-survey-answers/user-survey-answers.module";
 import { UserInterviewAnswersModule } from "./modules/user-interview-answers/user-interview-answers.module";
 import { UserFilesModule } from "./modules/user-files/user-files.module";
+import { ScheduleModule } from "@nestjs/schedule";
+import { ApplicationsService } from "./modules/applications/applications.service";
 
 @Module({
   imports: [
@@ -40,13 +42,14 @@ import { UserFilesModule } from "./modules/user-files/user-files.module";
           }
         : {}),
     }),
+    ScheduleModule.forRoot(),
     UsersModule,
     AuthModule,
     UserSurveyAnswersModule,
     UserInterviewAnswersModule,
     UserFilesModule,
   ],
-  providers: [FileUploadService, MailService],
+  providers: [FileUploadService, MailService, ApplicationsService],
   controllers: [
     AuthController,
     UsersController,
