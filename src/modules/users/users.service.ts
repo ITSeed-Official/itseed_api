@@ -28,7 +28,11 @@ export class UsersService {
   async update(id: number, dto: UserInformation) {
     const updateData = {
       ...dto,
-      referer: dto.referer.join(","),
+      grade: dto.grade.find((option) => option.selected).value,
+      referer: dto.referer
+        .filter((option) => option.selected)
+        .map((option) => option.value)
+        .join(","),
     };
 
     try {

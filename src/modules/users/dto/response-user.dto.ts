@@ -1,5 +1,6 @@
 import { ApiResponseProperty } from "@nestjs/swagger";
 import { Gender } from "../enum";
+import { GradeOption, RefererOption } from "../consts/const";
 
 export class ResponseUserDto {
   @ApiResponseProperty()
@@ -30,13 +31,13 @@ export class ResponseUserDto {
   department: string;
 
   @ApiResponseProperty()
-  grade: number;
+  grade: GradeOption[];
 
   @ApiResponseProperty()
   recommender: string;
 
   @ApiResponseProperty()
-  referer: string[];
+  referer: RefererOption[];
 
   @ApiResponseProperty()
   step: number;

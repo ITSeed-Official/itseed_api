@@ -11,6 +11,7 @@ import {
   IsNotEmptyObject,
   ArrayNotEmpty,
   MinLength,
+  IsBoolean,
 } from "class-validator";
 import { Gender } from "../../users/enum";
 import { ApiProperty } from "@nestjs/swagger";
@@ -44,20 +45,24 @@ export class UserInformation {
   @IsOptional()
   readonly department: string;
 
-  @ApiProperty({ default: 2 })
-  @IsInt()
-  @IsOptional()
-  readonly grade: number;
+  @ApiProperty()
+  @ValidateNested()
+  @IsArray()
+  @ArrayNotEmpty()
+  @Type(() => GradeOption)
+  readonly grade: GradeOption[];
 
   @ApiProperty({ default: "林種子" })
   @IsString()
   @IsOptional()
   readonly recommender: string;
 
-  @ApiProperty({ default: ["google", "facebook"] })
+  @ApiProperty()
+  @ValidateNested()
   @IsArray()
-  @IsOptional()
-  readonly referer: string[];
+  @ArrayNotEmpty()
+  @Type(() => RefererOption)
+  readonly referer: RefererOption[];
 }
 
 export class SurveyAnswer {
@@ -84,6 +89,34 @@ export class InterviewAnswer {
   @ApiProperty({ default: "我的回答" })
   @IsString()
   readonly answer: string;
+}
+
+class GradeOption {
+  @ApiProperty()
+  @IsString()
+  readonly title: string;
+
+  @ApiProperty()
+  @IsInt()
+  readonly value: number;
+
+  @ApiProperty({ default: false })
+  @IsBoolean()
+  readonly selected: boolean;
+}
+
+class RefererOption {
+  @ApiProperty()
+  @IsString()
+  readonly title: string;
+
+  @ApiProperty()
+  @IsString()
+  readonly value: string;
+
+  @ApiProperty({ default: false })
+  @IsBoolean()
+  readonly selected: boolean;
 }
 
 class File {

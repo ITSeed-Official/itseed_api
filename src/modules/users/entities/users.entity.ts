@@ -8,6 +8,12 @@ import {
 import { Exclude } from "class-transformer";
 import { Gender } from "../enum";
 import { ResponseUserDto } from "../dto";
+import {
+  GradeOption,
+  RefererOption,
+  gradeOptions,
+  refererOptions,
+} from "../consts/const";
 
 @Entity("users")
 export class UserEntity {
@@ -106,10 +112,28 @@ export class UserEntity {
       phone: this.phone,
       school: this.school,
       department: this.department,
-      grade: this.grade,
+      grade: this.getGrade(),
       recommender: this.recommender,
-      referer: this.referer ? this.referer.split(",") : [],
+      referer: this.getReferer(),
       step: this.step,
     };
+  }
+
+  getGrade(): GradeOption[] {
+    return gradeOptions.map((option) => {
+      option.selected = option.value === this.grade ? true : false;
+
+      return option;
+    });
+  }
+
+  getReferer(): RefererOption[] {
+    const referer = this.referer ? this.referer.split(",") : [];
+
+    return refererOptions.map((option) => {
+      option.selected = referer.includes(option.value) ? true : false;
+
+      return option;
+    });
   }
 }
