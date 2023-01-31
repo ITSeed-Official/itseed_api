@@ -15,10 +15,8 @@ jobs:
       with:
         node-version: 14.18.0
     - name: Install npm dependencies
-      working-directory: ./app
       run: yarn install
     - name: Run build task
-      working-directory: ./app
       run: yarn build
     - name: Deploy to Server
       uses: easingthemes/ssh-deploy@main
