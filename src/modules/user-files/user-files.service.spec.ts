@@ -7,6 +7,7 @@ import { UserFilesService } from "./user-files.service";
 describe("UserFilesService", () => {
   let service: UserFilesService;
   const awsUrl = "AWS_CLOUDFRONT";
+  const userId = 1;
 
   const mockUserFileRepo = {
     find: jest.fn(),
@@ -41,54 +42,54 @@ describe("UserFilesService", () => {
     expect(service).toBeDefined();
   });
 
-  describe("when the user does not upload the files", () => {
-    it("should get the UserFiles with empty string", async () => {
-      const userId = 1;
-      jest
-        .spyOn(mockUserFileRepo, "find")
-        .mockImplementation((): UserFileEntity[] => {
-          return [];
-        });
-      const userFiles = await service.getUserFiles(userId);
-      expect(userFiles).toEqual({});
+  describe("#getUserFiles", () => {
+    describe("when the user does not upload the files", () => {
+      it("should get the UserFiles with empty string", async () => {
+        jest
+          .spyOn(mockUserFileRepo, "find")
+          .mockImplementation((): UserFileEntity[] => {
+            return [];
+          });
+        const userFiles = await service.getUserFiles(userId);
+        expect(userFiles).toEqual({});
+      });
     });
-  });
 
-  describe("when the user has already uploaded the files", () => {
-    it("should get the UserFiles", async () => {
-      const userId = 1;
-      jest
-        .spyOn(mockUserFileRepo, "find")
-        .mockImplementation((): UserFileEntity[] => {
-          return [
-            {
-              userId: 1,
-              type: "resume",
-              path: "resume file path",
-              name: "resume file name",
-              createdAt: new Date(),
-              updatedAt: new Date(),
-            },
-            {
-              userId: 1,
-              type: "certification",
-              path: "certification file path",
-              name: "certification file name",
-              createdAt: new Date(),
-              updatedAt: new Date(),
-            },
-          ];
+    describe("when the user has already uploaded the files", () => {
+      it("should get the UserFiles", async () => {
+        jest
+          .spyOn(mockUserFileRepo, "find")
+          .mockImplementation((): UserFileEntity[] => {
+            return [
+              {
+                userId: 1,
+                type: "resume",
+                path: "resume file path",
+                name: "resume file name",
+                createdAt: new Date(),
+                updatedAt: new Date(),
+              },
+              {
+                userId: 1,
+                type: "certification",
+                path: "certification file path",
+                name: "certification file name",
+                createdAt: new Date(),
+                updatedAt: new Date(),
+              },
+            ];
+          });
+        const userFiles = await service.getUserFiles(userId);
+        expect(userFiles).toEqual({
+          resume: {
+            path: `${awsUrl}resume file path`,
+            name: "resume file name",
+          },
+          certification: {
+            path: `${awsUrl}certification file path`,
+            name: "certification file name",
+          },
         });
-      const userFiles = await service.getUserFiles(userId);
-      expect(userFiles).toEqual({
-        resume: {
-          path: `${awsUrl}resume file path`,
-          name: "resume file name",
-        },
-        certification: {
-          path: `${awsUrl}certification file path`,
-          name: "certification file name",
-        },
       });
     });
   });
