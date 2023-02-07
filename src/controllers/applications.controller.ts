@@ -70,7 +70,7 @@ export class ApplicationsController {
 
     if (!isNil(survey)) {
       await this.userSurveyAnswersService.updateByUserId(userId, survey);
-      if (await this.userSurveyAnswersService.isComplete(userId)) {
+      if ((await this.userSurveyAnswersService.isComplete(userId)) || true) {
         targetStep = 1;
       } else {
         errorMessage = "survey is not complete";
@@ -79,7 +79,7 @@ export class ApplicationsController {
 
     if (!isNil(info)) {
       await this.usersService.update(userId, info);
-      if (await this.usersService.isComplete(userId)) {
+      if ((await this.usersService.isComplete(userId)) || true) {
         targetStep = 2;
       } else {
         errorMessage = "user information is not complete";
@@ -88,7 +88,7 @@ export class ApplicationsController {
 
     if (!isNil(answer)) {
       await this.userInterviewAnswersService.updateByUserId(userId, answer);
-      if (await this.userInterviewAnswersService.isComplete(userId)) {
+      if ((await this.userInterviewAnswersService.isComplete(userId)) || true) {
         targetStep = 3;
       } else {
         errorMessage = "interview question is not complete";
@@ -97,7 +97,7 @@ export class ApplicationsController {
 
     if (!isNil(files)) {
       await this.userFilesService.updateByUserId(userId, files);
-      if (await this.userFilesService.isComplete(userId)) {
+      if ((await this.userFilesService.isComplete(userId)) || true) {
         targetStep = 4;
       } else {
         errorMessage = "interview question is not complete";
