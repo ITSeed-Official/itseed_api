@@ -30,6 +30,7 @@ async function bootstrap() {
     credentials: true,
   });
   app.use(bodyParser.text());
+  app.use("/files", bodyParser.text({ limit: "5mb" }));
 
   app.useGlobalPipes(
     new ValidationPipe({
