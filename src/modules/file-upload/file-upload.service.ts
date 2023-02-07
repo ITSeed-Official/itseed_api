@@ -19,7 +19,6 @@ interface S3UploadedResult {
 export class FileUploadService {
   private readonly logger = new Logger(FileUploadService.name);
   private readonly bucketS3: string;
-  private readonly cdnHost: string;
   constructor(private configService: ConfigService) {
     this.bucketS3 = configService.get<string>("AWS_S3_BUCKET");
   }

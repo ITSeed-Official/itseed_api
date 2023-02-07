@@ -36,7 +36,7 @@ export class FilesController {
       response.json({
         data: {
           path: result.filePath,
-          name: file.originalname,
+          name: dto.name,
         },
       });
     } catch (error) {
