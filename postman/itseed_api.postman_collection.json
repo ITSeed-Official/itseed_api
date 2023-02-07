@@ -123,6 +123,11 @@
 						"key": "Cookie",
 						"value": "{{cookie}}",
 						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
 					}
 				],
 				"body": {
@@ -164,11 +169,16 @@
 						{
 							"key": "file",
 							"type": "file",
-							"src": "/Users/alanhsueh/Downloads/Blue_merle_koolie_short_coat_heading_sheep.jpeg"
+							"src": "/Users/alanhsueh/Downloads/海豚俠.pdf"
 						},
 						{
 							"key": "type",
 							"value": "resume",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "海豚俠",
 							"type": "text"
 						}
 					]
