@@ -63,51 +63,86 @@ export class ApplicationsController {
     @Body() dto: UpdateApplicationPayload
   ) {
     const userId = user.id;
-    let targetStep = 0;
-    let errorMessage = "";
 
     const { info, survey, answer, files } = dto?.data;
 
     if (!isNil(survey)) {
       await this.userSurveyAnswersService.updateByUserId(userId, survey);
-      if ((await this.userSurveyAnswersService.isComplete(userId)) || true) {
-        targetStep = 1;
-      } else {
-        errorMessage = "survey is not complete";
-      }
     }
 
     if (!isNil(info)) {
       await this.usersService.update(userId, info);
-      if ((await this.usersService.isComplete(userId)) || true) {
-        targetStep = 2;
-      } else {
-        errorMessage = "user information is not complete";
-      }
     }
 
     if (!isNil(answer)) {
       await this.userInterviewAnswersService.updateByUserId(userId, answer);
-      if ((await this.userInterviewAnswersService.isComplete(userId)) || true) {
-        targetStep = 3;
-      } else {
-        errorMessage = "interview question is not complete";
-      }
     }
 
     if (!isNil(files)) {
       await this.userFilesService.updateByUserId(userId, files);
-      if ((await this.userFilesService.isComplete(userId)) || true) {
-        targetStep = 4;
+    }
+
+    const isUserSurveyComplete = await this.userSurveyAnswersService.isComplete(
+      userId
+    );
+
+    const isUserInfoComplete = await this.usersService.isComplete(userId);
+
+    const isUserInterviewComplete =
+      await this.userInterviewAnswersService.isComplete(userId);
+
+    const isUserFilesComplete = await this.userFilesService.isComplete(userId);
+
+    let targetStep = this.getCurrentStep([
+      isUserSurveyComplete,
+      isUserInfoComplete,
+      isUserInterviewComplete,
+    ]);
+
+    const isAllFilledIn = [survey, info, answer, files].every(
+      (data) => !isNil(data)
+    );
+
+    const errors = [];
+
+    if (isAllFilledIn) {
+      if (!isUserSurveyComplete) {
+        errors.push("DISC");
+      }
+      if (!isUserInfoComplete) {
+        errors.push("個人資料");
+      }
+      if (!isUserInterviewComplete) {
+        errors.push("書審");
+      }
+      if (!isUserFilesComplete) {
+        errors.push("檔案");
+      }
+
+      if (errors.length > 0) {
+        throw new HttpException(
+          `${errors.join(",")} 未填寫完整`,
+          HttpStatus.BAD_REQUEST
+        );
       } else {
-        errorMessage = "interview question is not complete";
+        targetStep = 4;
       }
     }
 
-    if (errorMessage) {
-      throw new HttpException(errorMessage, HttpStatus.BAD_REQUEST);
+    await this.usersService.calculateSteps(userId, targetStep);
+  }
+
+  getCurrentStep(isCompleteList: boolean[]) {
+    let targetStep = 0;
+
+    for (const isComplete of isCompleteList) {
+      if (isComplete) {
+        targetStep += 1;
+      } else {
+        break;
+      }
     }
 
-    await this.usersService.calculateSteps(userId, targetStep);
+    return targetStep;
   }
 }

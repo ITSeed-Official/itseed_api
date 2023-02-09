@@ -163,12 +163,6 @@ export class UsersService {
   }
 
   async calculateSteps(id: number, targetStep: number) {
-    const currentStep = (await this.usersRepository.findOne(id)).step;
-
-    if (currentStep >= targetStep) {
-      return;
-    }
-
     await this.usersRepository.update(id, { step: targetStep });
   }
 
