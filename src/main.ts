@@ -31,6 +31,7 @@ async function bootstrap() {
   });
   app.use(bodyParser.text());
   app.use("/files", bodyParser.text({ limit: "5mb" }));
+  app.use("/files", bodyParser.urlencoded({ extended: true, limit: "5mb" }));
 
   app.useGlobalPipes(
     new ValidationPipe({
