@@ -10,7 +10,6 @@ import {
 } from "./modules";
 import {
   AuthController,
-  UsersController,
   HealthController,
   ApplicationsController,
   FilesController,
@@ -52,7 +51,6 @@ import { ApplicationsService } from "./modules/applications/applications.service
   providers: [FileUploadService, MailService, ApplicationsService],
   controllers: [
     AuthController,
-    UsersController,
     HealthController,
     ApplicationsController,
     FilesController,
