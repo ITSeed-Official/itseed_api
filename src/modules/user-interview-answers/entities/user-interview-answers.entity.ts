@@ -14,7 +14,7 @@ export class UserInterviewAnswerEntity {
   @PrimaryColumn({ name: "number" })
   number: number;
 
-  @Column()
+  @Column("text")
   answer: string;
 
   @CreateDateColumn({
