@@ -121,7 +121,7 @@ export class ApplicationsController {
 
       if (errors.length > 0) {
         throw new HttpException(
-          `${errors.join(",")} 未填寫完整`,
+          `${errors.join(",")} 未填寫完整或不符合規定`,
           HttpStatus.BAD_REQUEST
         );
       } else {

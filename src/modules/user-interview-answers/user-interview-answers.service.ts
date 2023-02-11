@@ -68,10 +68,18 @@ export class UserInterviewAnswersService {
           return true;
         }
 
+        if (this.getLength(answer.answer) > interviewQuestion.limit) {
+          return true;
+        }
+
         return false;
       }
     );
 
     return _.isNil(unCompleteQuestion) ? true : false;
   }
+
+  getLength = (str: string) => {
+    return str.replace(/[^\x00-\xff]/g, "O").length;
+  };
 }
