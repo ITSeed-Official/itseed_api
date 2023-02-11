@@ -189,6 +189,10 @@ export class UsersService {
       return false;
     }
 
+    if (isNil(user.phone) || user.phone.length !== 10) {
+      return false;
+    }
+
     return true;
   }
 }

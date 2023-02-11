@@ -1,6 +1,5 @@
 import {
   IsString,
-  MaxLength,
   IsEnum,
   IsOptional,
   ValidateNested,
@@ -10,7 +9,6 @@ import {
   Max,
   IsNotEmptyObject,
   ArrayNotEmpty,
-  MinLength,
   IsBoolean,
 } from "class-validator";
 import { Gender } from "../../users/enum";
@@ -29,8 +27,6 @@ export class UserInformation {
   readonly gender: Gender;
 
   @ApiProperty({ default: "0912345678", maxLength: 10 })
-  @MinLength(10)
-  @MaxLength(10)
   @IsString()
   @IsOptional()
   readonly phone: string;
