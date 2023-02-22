@@ -15,7 +15,7 @@ export class UserSurveyAnswerEntity {
   number: number;
 
   @Column()
-  answerNumber: number;
+  answer: number;
 
   @CreateDateColumn({
     type: "timestamp",

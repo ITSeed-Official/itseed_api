@@ -51,10 +51,10 @@ describe("UserSurveyAnswersService", () => {
     describe("when the user has filled in the information", () => {
       it("should get questions and their answers", async () => {
         const questionNumber = 1;
-        const answerNumber = 1;
+        const answer = 1;
 
         jest.spyOn(mockSurveyRepo, "find").mockImplementation(() => {
-          return [generateAnswer(userId, questionNumber, answerNumber)];
+          return [generateAnswer(userId, questionNumber, answer)];
         });
 
         const surveys = await service.getUserSurvey(userId);
@@ -63,7 +63,7 @@ describe("UserSurveyAnswersService", () => {
           return question.number === questionNumber;
         });
 
-        expect(question.answer).toBe(answerNumber);
+        expect(question.answer).toBe(answer);
       });
     });
   });
@@ -72,7 +72,7 @@ describe("UserSurveyAnswersService", () => {
     const dto: SurveyAnswer[] = [
       {
         number: 1,
-        answerNumber: 3,
+        answer: 3,
       },
     ];
 
@@ -84,7 +84,7 @@ describe("UserSurveyAnswersService", () => {
             {
               userId: userId,
               number: 1,
-              answerNumber: 3,
+              answer: 3,
             },
           ]);
           expect(options).toEqual({
@@ -214,12 +214,12 @@ describe("UserSurveyAnswersService", () => {
 const generateAnswer = (
   userId: number,
   number: number,
-  answerNumber: number
+  answer: number
 ): UserSurveyAnswerEntity => {
-  const answer = new UserSurveyAnswerEntity();
-  answer.userId = userId;
-  answer.number = number;
-  answer.answerNumber = answerNumber;
+  const userSurveyAnswer = new UserSurveyAnswerEntity();
+  userSurveyAnswer.userId = userId;
+  userSurveyAnswer.number = number;
+  userSurveyAnswer.answer = answer;
 
-  return answer;
+  return userSurveyAnswer;
 };

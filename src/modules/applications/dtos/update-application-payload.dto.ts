@@ -72,7 +72,7 @@ export class SurveyAnswer {
   @IsInt()
   @Min(1)
   @Max(4)
-  readonly answerNumber: number;
+  readonly answer: number;
 }
 
 export class InterviewAnswer {

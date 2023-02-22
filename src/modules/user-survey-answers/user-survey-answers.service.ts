@@ -27,7 +27,7 @@ export class UserSurveyAnswersService {
       });
 
       if (!_.isNil(answer)) {
-        question.answer = answer.answerNumber;
+        question.answer = answer.answer;
       }
 
       return question;
@@ -81,14 +81,14 @@ export class UserSurveyAnswersService {
       },
     });
 
-    const maxAnswerNumber = _(answers)
-      .map("answerNumber")
+    const maxanswer = _(answers)
+      .map("answer")
       .countBy()
       .entries()
       .maxBy(_.last)
       .shift();
 
-    switch (_.toNumber(maxAnswerNumber)) {
+    switch (_.toNumber(maxanswer)) {
       case 1:
         return SurveyResult.D;
       case 2:
