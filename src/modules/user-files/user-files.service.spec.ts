@@ -103,7 +103,16 @@ describe("UserFilesService", () => {
             return [];
           });
         const userFiles = await service.getUserFiles(userId);
-        expect(userFiles).toEqual({});
+        expect(userFiles).toEqual({
+          resume: {
+            name: null,
+            path: null,
+          },
+          certification: {
+            name: null,
+            path: null,
+          },
+        });
       });
     });
 

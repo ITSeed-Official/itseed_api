@@ -34,7 +34,16 @@ export class UserFilesService {
       },
     });
 
-    const userFilesHash: UserFiles = {} as UserFiles;
+    const userFilesHash: UserFiles = {
+      resume: {
+        name: null,
+        path: null,
+      },
+      certification: {
+        name: null,
+        path: null,
+      },
+    };
 
     userFiles.forEach((userFile) => {
       userFilesHash[userFile.type] = {
