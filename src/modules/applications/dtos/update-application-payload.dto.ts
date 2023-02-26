@@ -118,10 +118,12 @@ class RefererOption {
 class File {
   @ApiProperty({ default: "/file-path.pdf" })
   @IsString()
+  @IsOptional()
   readonly path: string;
 
   @ApiProperty({ default: "my file" })
   @IsString()
+  @IsOptional()
   readonly name: string;
 }
 

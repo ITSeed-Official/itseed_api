@@ -56,20 +56,25 @@ export class UserFilesService {
   }
 
   async updateByUserId(userId: number, dto: UserFilesDto) {
-    const updateData = [
-      {
+    const updateData = [];
+
+    if (dto.resume.path !== null) {
+      updateData.push({
         type: "resume",
         userId: userId,
         name: dto.resume.name,
         path: dto.resume.path,
-      },
-      {
+      });
+    }
+    if (dto.certification.path !== null) {
+      updateData.push({
         type: "certification",
         userId: userId,
         name: dto.certification.name,
         path: dto.certification.path,
-      },
-    ];
+      });
+    }
+
     try {
       await this.userFileRepository.upsert(updateData, {
         conflictPaths: ["userId", "type"],
