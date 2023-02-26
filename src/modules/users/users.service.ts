@@ -26,9 +26,11 @@ export class UsersService {
   }
 
   async update(id: number, dto: UserInformation) {
+    const selectedGrade = dto.grade.find((option) => option.selected);
+
     const updateData = {
       ...dto,
-      grade: dto.grade.find((option) => option.selected).value,
+      grade: !isNil(selectedGrade) ? selectedGrade.value : null,
       referer: dto.referer
         .filter((option) => option.selected)
         .map((option) => option.value)
