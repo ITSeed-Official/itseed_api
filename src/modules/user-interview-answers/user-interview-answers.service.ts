@@ -68,6 +68,10 @@ export class UserInterviewAnswersService {
           return true;
         }
 
+        if (_.isEmpty(answer.answer)) {
+          return true;
+        }
+
         if (this.getLength(answer.answer) > interviewQuestion.limit) {
           return true;
         }
