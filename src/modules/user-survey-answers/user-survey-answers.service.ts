@@ -26,9 +26,7 @@ export class UserSurveyAnswersService {
         return answer.number === question.number;
       });
 
-      if (!_.isNil(answer)) {
-        question.answer = answer.answer;
-      }
+      question.answer = !_.isNil(answer) ? answer.answer : null;
 
       return question;
     });
