@@ -1,0 +1,37 @@
+version: '3.7'
+services:
+  app:
+    tty: true
+    restart: always
+    env_file: ./.env
+    build:
+      context: ../
+      dockerfile: ./docker/Dockerfile
+      target: ${APP_ENV}
+    volumes:
+      - ..:/app:delegated
+    ports:
+      - ${APP_PORT}:3000
+    depends_on:
+      - mysql
+    networks:
+      - itseed-net
+
+  mysql:
+    image: mysql
+    command: mysqld --default-authentication-plugin=mysql_native_password
+    volumes:
+      - ./volumes/data:/var/lib/mysql
+      - ./seeds:/docker-entrypoint-initdb.d
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: strapi
+      MYSQL_DATABASE: itseed_api
+      MYSQL_USER: strapi
+      MYSQL_PASSWORD: strapi
+    networks:
+      - itseed-net
+networks:
+    itseed-net:
+      driver: bridge
