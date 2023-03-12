@@ -1,0 +1,24 @@
+name: Auto test
+
+on:
+  pull_request_target:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [v14.18.1]
+        
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        ref: 'refs/pull/${{ github.event.number }}/merge'
+    - name: Install modules
+      run: yarn
+    - name: Run tests
+      run: yarn test:cov --silent
