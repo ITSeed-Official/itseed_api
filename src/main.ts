@@ -14,7 +14,12 @@ async function bootstrap() {
   app.enableCors({
     origin:
       process.env.NODE_ENV === "production"
-        ? ["https://itseed.tw", "https://www.itseed.tw"]
+        ? [
+            "https://itseed.tw",
+            "https://www.itseed.tw",
+            "http://local.itseed.tw:3000",
+            "http://localhost:3000",
+          ]
         : [
             "http://localhost:3000",
             "https://itseed.tw",
