@@ -17,7 +17,7 @@ async function bootstrap() {
         ? [
             "https://itseed.tw",
             "https://www.itseed.tw",
-            "http://local.itseed.tw",
+            "http://local.itseed.tw:3000",
             "http://localhost:3000",
           ]
         : [
