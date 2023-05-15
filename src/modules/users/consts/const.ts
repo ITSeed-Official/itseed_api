@@ -35,11 +35,6 @@ export const gradeOptions: GradeOption[] = [
     value: 6,
     selected: false,
   },
-  {
-    title: "碩二",
-    value: 7,
-    selected: false,
-  },
 ];
 
 export interface RefererOption {
