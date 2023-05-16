@@ -21,7 +21,7 @@ export class UserSurveyAnswersService {
       },
     });
 
-    return surveyQuestions.map((question: Question) => {
+    return _.cloneDeep(surveyQuestions).map((question: Question) => {
       const answer = answers.find((answer) => {
         return answer.number === question.number;
       });

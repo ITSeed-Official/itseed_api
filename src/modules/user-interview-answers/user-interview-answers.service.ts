@@ -58,7 +58,7 @@ export class UserInterviewAnswersService {
       },
     });
 
-    const unCompleteQuestion = interviewQuestions.find(
+    const unCompleteQuestion = _.cloneDeep(interviewQuestions).find(
       (interviewQuestion: Question) => {
         const answer = interviewAnswers.find((answer) => {
           return interviewQuestion.number === answer.number;
