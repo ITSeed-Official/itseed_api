@@ -65,6 +65,31 @@ describe("UserInterviewAnswersService", () => {
       expect(question.answer).toBe(answerDescription);
     });
   });
+
+  describe("when the user has filled in the information and the other one has not", () => {
+    it("should not get interview questions and their answers when the other one has not filled in", async () => {
+      const userId = 1;
+      const questionNumber = 1;
+      const answerDescription = "my answer";
+
+      jest.spyOn(mockInterviewRepo, "find").mockImplementation((option) => {
+        if (option.where.userId === 2) {
+          return [];
+        }
+
+        return [
+          generateAnswerDescription(userId, questionNumber, answerDescription),
+        ];
+      });
+
+      await service.getUserInterview(userId);
+      const interviews = await service.getUserInterview(2);
+
+      interviews.forEach((interviewQuestion) => {
+        expect(interviewQuestion.answer).toBe("");
+      });
+    });
+  });
 });
 
 const generateAnswerDescription = (
