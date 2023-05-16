@@ -66,6 +66,27 @@ describe("UserSurveyAnswersService", () => {
         expect(question.answer).toBe(answer);
       });
     });
+
+    describe("when a user has filled in the information and the other one has not", () => {
+      it("should not get questions and their answers when the other one has not filled in", async () => {
+        const questionNumber = 1;
+        const answer = 1;
+
+        jest.spyOn(mockSurveyRepo, "find").mockImplementation((option) => {
+          if (option.where.userId === 2) {
+            return [];
+          }
+          return [generateAnswer(userId, questionNumber, answer)];
+        });
+
+        await service.getUserSurvey(userId);
+        const user2Surveys = await service.getUserSurvey(2);
+
+        user2Surveys.forEach((question) => {
+          expect(question.answer).toBe(null);
+        });
+      });
+    });
   });
 
   describe("#updateByUserId", () => {

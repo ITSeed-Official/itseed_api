@@ -20,17 +20,19 @@ export class UserInterviewAnswersService {
       },
     });
 
-    return interviewQuestions.map((interviewQuestion: Question) => {
-      const answer = interviewAnswers.find((answer) => {
-        return interviewQuestion.number === answer.number;
-      });
+    return _.cloneDeep(interviewQuestions).map(
+      (interviewQuestion: Question) => {
+        const answer = interviewAnswers.find((answer) => {
+          return interviewQuestion.number === answer.number;
+        });
 
-      if (!_.isNil(answer)) {
-        interviewQuestion.answer = answer.answer;
+        if (!_.isNil(answer)) {
+          interviewQuestion.answer = answer.answer;
+        }
+
+        return interviewQuestion;
       }
-
-      return interviewQuestion;
-    });
+    );
   }
 
   async updateByUserId(userId: number, data: InterviewAnswer[]) {

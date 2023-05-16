@@ -59,17 +59,19 @@ export class UserSurveyAnswersService {
       },
     });
 
-    const unCompleteQuestion = surveyQuestions.find((question: Question) => {
-      const answer = answers.find((answer) => {
-        return answer.number === question.number;
-      });
+    const unCompleteQuestion = _.cloneDeep(surveyQuestions).find(
+      (question: Question) => {
+        const answer = answers.find((answer) => {
+          return answer.number === question.number;
+        });
 
-      if (_.isNil(answer)) {
-        return true;
+        if (_.isNil(answer)) {
+          return true;
+        }
+
+        return false;
       }
-
-      return false;
-    });
+    );
 
     return _.isNil(unCompleteQuestion) ? true : false;
   }
