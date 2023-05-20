@@ -1,12 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { google } from "googleapis";
-import { UserInterviewAnswersService } from "../user-interview-answers/user-interview-answers.service";
-import { UserSurveyAnswersService } from "../user-survey-answers/user-survey-answers.service";
 import { UsersService } from "../users";
-import { UserFilesService } from "src/modules/user-files/user-files.service";
 import _ from "lodash";
-import { interviewQuestions } from "../user-interview-answers/consts/const";
 
 @Injectable()
 export class ApplicationsService {
@@ -20,10 +16,7 @@ export class ApplicationsService {
 
   constructor(
     private readonly configService: ConfigService,
-    private readonly usersService: UsersService,
-    private readonly userSurveyAnswersService: UserSurveyAnswersService,
-    private readonly userInterviewAnswersService: UserInterviewAnswersService,
-    private readonly userFilesService: UserFilesService
+    private readonly usersService: UsersService
   ) {
     this.clientEmail = this.configService.get<string>("SHEET_CLIENT_EMAIL");
     this.sheetId = configService.get<string>("SHEET_ID");
@@ -54,52 +47,14 @@ export class ApplicationsService {
       range: this.sheetRange,
       valueInputOption: this.valueInputOption,
       requestBody: {
-        values: [
-          [
-            "ID",
-            "姓名",
-            "Email",
-            "電話",
-            "性別",
-            "學校",
-            "系所",
-            "年級",
-            "DISC",
-            ...interviewQuestions.map((question) => question.title),
-            "履歷",
-            "身分證明",
-            "完成階段",
-          ],
-        ],
+        values: [["ID", "姓名", "Email", "電話", "完成階段"]],
       },
     });
 
     _.chunk(users, this.chunkSize).forEach(async (chunkUsers) => {
       const insertDataPromise = chunkUsers.map(async (user) => {
         const userId = user.id;
-        const surveyResult =
-          await this.userSurveyAnswersService.getSurveyResult(userId);
-
-        const interviewAnswer =
-          await this.userInterviewAnswersService.getUserInterview(userId);
-
-        const userFiles = await this.userFilesService.getUserFiles(userId);
-
-        return [
-          userId,
-          user.nickname,
-          user.email,
-          user.phone,
-          user.gender,
-          user.school,
-          user.department,
-          user.grade,
-          surveyResult,
-          ...interviewAnswer.map((answer) => answer.answer),
-          userFiles.resume.path,
-          userFiles.certification.path,
-          user.step,
-        ];
+        return [userId, user.nickname, user.email, user.phone, user.step];
       });
 
       const insertData = await Promise.all(insertDataPromise);
