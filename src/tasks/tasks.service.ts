@@ -7,7 +7,7 @@ export class TasksService {
   private readonly logger = new Logger(TasksService.name);
   constructor(private readonly applicationsService: ApplicationsService) {}
 
-  @Cron(CronExpression.EVERY_10_SECONDS)
+  @Cron(CronExpression.EVERY_2_HOURS)
   etlCron() {
     console.debug("start cronjob");
     this.applicationsService.transformData();
