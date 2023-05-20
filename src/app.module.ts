@@ -20,6 +20,7 @@ import { UserInterviewAnswersModule } from "./modules/user-interview-answers/use
 import { UserFilesModule } from "./modules/user-files/user-files.module";
 import { ScheduleModule } from "@nestjs/schedule";
 import { ApplicationsService } from "./modules/applications/applications.service";
+import { TasksService } from "./tasks/tasks.service";
 
 @Module({
   imports: [
@@ -48,7 +49,12 @@ import { ApplicationsService } from "./modules/applications/applications.service
     UserInterviewAnswersModule,
     UserFilesModule,
   ],
-  providers: [FileUploadService, MailService, ApplicationsService],
+  providers: [
+    FileUploadService,
+    MailService,
+    ApplicationsService,
+    TasksService,
+  ],
   controllers: [
     AuthController,
     HealthController,
