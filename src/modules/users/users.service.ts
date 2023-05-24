@@ -6,6 +6,13 @@ import * as bcrypt from "bcryptjs";
 import { isNil } from "lodash";
 import { TransformedGoogleUser } from "../../common/dtos";
 import { UserInformation } from "../applications/dtos/update-application-payload.dto";
+import {
+  REGISTRATION,
+  USER_FILE_COMPLETION,
+  USER_INFO_COMPLETION,
+  USER_INTERVIEW_COMPLETION,
+  USER_SURVEY_COMPLETION,
+} from "./consts/const";
 
 @Injectable()
 export class UsersService {
@@ -194,5 +201,29 @@ export class UsersService {
     }
 
     return true;
+  }
+
+  async getStepCount(): Promise<Record<number, number>> {
+    const result = await this.usersRepository
+      .createQueryBuilder("user")
+      .select("user.step, COUNT(*) as count")
+      .groupBy("user.step")
+      .getRawMany();
+
+    const stepMapping = result.reduce((acc, curr) => {
+      acc[curr.step] = parseInt(curr.count) || 0;
+      return acc;
+    }, {});
+
+    return [
+      REGISTRATION,
+      USER_SURVEY_COMPLETION,
+      USER_INFO_COMPLETION,
+      USER_INTERVIEW_COMPLETION,
+      USER_FILE_COMPLETION,
+    ].reduce((acc, curr) => {
+      acc[curr] = stepMapping[curr] || 0;
+      return acc;
+    }, {});
   }
 }
