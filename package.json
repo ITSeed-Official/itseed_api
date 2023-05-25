@@ -28,6 +28,7 @@
     "deploy": "npm ci && npm run build && npm run start:prod"
   },
   "dependencies": {
+    "@nestjs/axios": "^2.0.0",
     "@nestjs/common": "^8.1.1",
     "@nestjs/core": "^8.0.0",
     "@nestjs/jwt": "^8.0.0",

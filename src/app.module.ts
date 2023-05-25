@@ -1,6 +1,7 @@
 import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { TypeOrmModule } from "@nestjs/typeorm";
+import { HttpModule } from "@nestjs/axios";
 
 import {
   UsersModule,
@@ -21,6 +22,7 @@ import { UserFilesModule } from "./modules/user-files/user-files.module";
 import { ScheduleModule } from "@nestjs/schedule";
 import { ApplicationsService } from "./modules/applications/applications.service";
 import { TasksService } from "./tasks/tasks.service";
+import { DiscordService } from "./modules/notifications/discord/services/discord.service";
 
 @Module({
   imports: [
@@ -48,12 +50,14 @@ import { TasksService } from "./tasks/tasks.service";
     UserSurveyAnswersModule,
     UserInterviewAnswersModule,
     UserFilesModule,
+    HttpModule,
   ],
   providers: [
     FileUploadService,
     MailService,
     ApplicationsService,
     TasksService,
+    DiscordService,
   ],
   controllers: [
     AuthController,
