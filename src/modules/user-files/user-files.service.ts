@@ -3,7 +3,6 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { UserFileEntity } from "./entities/user-files.entity";
 import { UserFiles as UserFilesDto } from "../applications/dtos/update-application-payload.dto";
-import { ConfigService } from "@nestjs/config";
 
 interface File {
   path: string;
@@ -17,15 +16,10 @@ export interface UserFiles {
 
 @Injectable()
 export class UserFilesService {
-  private readonly awsUrl: string;
-
   constructor(
     @InjectRepository(UserFileEntity)
-    private readonly userFileRepository: Repository<UserFileEntity>,
-    private readonly configService: ConfigService
-  ) {
-    this.awsUrl = this.configService.get<string>("AWS_CLOUDFRONT");
-  }
+    private readonly userFileRepository: Repository<UserFileEntity>
+  ) {}
 
   async getUserFiles(userId: number): Promise<UserFiles> {
     const userFiles = await this.userFileRepository.find({
@@ -47,7 +41,7 @@ export class UserFilesService {
 
     userFiles.forEach((userFile) => {
       userFilesHash[userFile.type] = {
-        path: `${this.awsUrl}${userFile.path}`,
+        path: userFile.path,
         name: userFile.name,
       };
     });

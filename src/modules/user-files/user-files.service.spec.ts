@@ -143,11 +143,11 @@ describe("UserFilesService", () => {
         const userFiles = await service.getUserFiles(userId);
         expect(userFiles).toEqual({
           resume: {
-            path: `${awsUrl}resume file path`,
+            path: `resume file path`,
             name: "resume file name",
           },
           certification: {
-            path: `${awsUrl}certification file path`,
+            path: `certification file path`,
             name: "certification file name",
           },
         });

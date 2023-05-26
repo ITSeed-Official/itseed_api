@@ -70,8 +70,13 @@ export const refererOptions: RefererOption[] = [
     selected: false,
   },
   {
-    title: "Blink",
-    value: "blink",
+    title: "IG",
+    value: "ig",
+    selected: false,
+  },
+  {
+    title: "廣告",
+    value: "ad",
     selected: false,
   },
   {

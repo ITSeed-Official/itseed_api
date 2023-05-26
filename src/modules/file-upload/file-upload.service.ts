@@ -19,8 +19,11 @@ interface S3UploadedResult {
 export class FileUploadService {
   private readonly logger = new Logger(FileUploadService.name);
   private readonly bucketS3: string;
+  private readonly awsUrl: string;
+
   constructor(private configService: ConfigService) {
     this.bucketS3 = configService.get<string>("AWS_S3_BUCKET");
+    this.awsUrl = this.configService.get<string>("AWS_CLOUDFRONT");
   }
 
   async execute(
@@ -58,7 +61,7 @@ export class FileUploadService {
       const cdnLocation = "";
       return {
         location: cdnLocation || s3Location,
-        filePath: filepath,
+        filePath: `${this.awsUrl}${filepath}`,
       };
     } catch (e) {
       throw new FileUploadException(e);
