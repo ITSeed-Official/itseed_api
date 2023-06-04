@@ -117,7 +117,7 @@ export class UsersService {
   async getOrCreateUserFromGoogle(
     rawUser: TransformedGoogleUser
   ): Promise<UserEntity> {
-    console.log(rawUser);
+    console.log("getOrCreateUserFromGoogle", rawUser);
     const {
       id,
       displayName,
@@ -129,10 +129,13 @@ export class UsersService {
       accessToken,
     } = rawUser;
     let user = await this.findOneByEmail(email);
+
+    const transFamilyName = isNil(familyName) ? "" : familyName;
+
     if (isNil(user)) {
       user = this.usersRepository.create({
         email: email,
-        nickname: `${familyName}${givenName}`,
+        nickname: `${transFamilyName}${givenName}`,
         passwordHash: "",
         isVerified: emailVerified,
         avatar: avatar,
@@ -146,7 +149,7 @@ export class UsersService {
         email: email,
         emailVerified: emailVerified,
         displayName: displayName,
-        familyName: familyName,
+        familyName: transFamilyName,
         givenName: givenName,
         avatar: avatar,
         accessToken: accessToken,
