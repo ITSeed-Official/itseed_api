@@ -19,7 +19,7 @@ export class ApplicationsService {
   private sheetId: string;
   private privateKey: string;
   private sheetScope: string;
-  private chunkSize = 100;
+  private chunkSize = 300;
   private sheetRange = "Sheet1";
   private valueInputOption = "RAW";
 
