@@ -37,7 +37,7 @@ import { DiscordService } from "./modules/notifications/discord/services/discord
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       entities: [__dirname + "/**/*.entity{.ts,.js}"],
-      synchronize: false,
+      synchronize: process.env.NODE_ENV === "production" ? false : true,
       ...(process.env.NODE_ENV === "development"
         ? {
             logger: new DatabaseLogger(),
