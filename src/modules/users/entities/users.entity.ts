@@ -42,10 +42,10 @@ export class UserEntity {
   @Column({ length: 10, type: "varchar", nullable: true })
   phone: string;
 
-  @Column({ length: 10, type: "varchar", nullable: true })
+  @Column({ type: "varchar", nullable: true })
   school: string;
 
-  @Column({ length: 10, type: "varchar", nullable: true })
+  @Column({ type: "varchar", nullable: true })
   department: string;
 
   @Column({ nullable: true })
