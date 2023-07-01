@@ -26,4 +26,17 @@ export class TasksService {
 
     this.applicationsService.snapshotUserStep();
   }
+
+  @Cron(CronExpression.EVERY_DAY_AT_11PM)
+  transformSuccessUserDataCron() {
+    const startDate = moment(START_TIME, "YYYY-MM-DD HH:mm:ss");
+    const endDate = moment(END_TIME, "YYYY-MM-DD HH:mm:ss").add(2, "days");
+    const now = moment();
+
+    if (!now.isBetween(startDate, endDate)) {
+      return;
+    }
+
+    this.applicationsService.transformSuccessUserData();
+  }
 }

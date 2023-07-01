@@ -105,6 +105,14 @@ export class UsersService {
     return this.usersRepository.findOne(id);
   }
 
+  async findByStep(step: number): Promise<UserEntity[]> {
+    return this.usersRepository.find({
+      where: {
+        step,
+      },
+    });
+  }
+
   async findGoogleUserOne(googleId: string): Promise<GoogleUserEntity> {
     return this.googleUserRepository.findOne({
       where: {
