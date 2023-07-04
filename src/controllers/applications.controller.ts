@@ -15,6 +15,8 @@ import { UserInterviewAnswersService } from "src/modules/user-interview-answers/
 import { UserSurveyAnswersService } from "src/modules/user-survey-answers/user-survey-answers.service";
 import { UpdateApplicationPayload } from "src/modules/applications/dtos/update-application-payload.dto";
 import { isNil } from "lodash";
+import moment from "moment";
+import { END_TIME, START_TIME } from "src/modules/users/consts/const";
 
 @ApiTags("applications")
 @Controller("applications")
@@ -60,8 +62,20 @@ export class ApplicationsController {
   @Put("me")
   async update(
     @User() user: UserEntity,
-    @Body() dto: UpdateApplicationPayload
+    @Body() dto: UpdateApplicationPayload,
+    @Res() response: Response
   ) {
+    const startDate = moment(START_TIME);
+    const endDate = moment(END_TIME);
+    const now = moment();
+
+    if (!now.isBetween(startDate, endDate)) {
+      response.status(HttpStatus.BAD_REQUEST).json({
+        error: {
+          message: "報名時間截止",
+        },
+      });
+    }
     const userId = user.id;
 
     const { info, survey, answer, files } = dto?.data;
