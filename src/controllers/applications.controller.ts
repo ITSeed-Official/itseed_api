@@ -5,9 +5,10 @@ import {
   HttpException,
   HttpStatus,
   Put,
+  Req,
   Res,
 } from "@nestjs/common";
-import { Response } from "express";
+import { Request, Response } from "express";
 import { ApiBody, ApiHeader, ApiTags } from "@nestjs/swagger";
 import { User, UserEntity, UsersService, Auth } from "src/modules";
 import { UserFilesService } from "src/modules/user-files/user-files.service";
@@ -63,13 +64,15 @@ export class ApplicationsController {
   async update(
     @User() user: UserEntity,
     @Body() dto: UpdateApplicationPayload,
+    @Req() request: Request,
     @Res() response: Response
   ) {
     const startDate = moment(START_TIME);
     const endDate = moment(END_TIME);
     const now = moment();
+    const devMode = this.getCookie(process.env.DEV_MODE, request);
 
-    if (!now.isBetween(startDate, endDate)) {
+    if (!now.isBetween(startDate, endDate) && devMode !== "true") {
       response.status(HttpStatus.BAD_REQUEST).json({
         error: {
           message: "報名時間截止",
@@ -144,6 +147,22 @@ export class ApplicationsController {
     }
 
     await this.usersService.calculateSteps(userId, targetStep);
+  }
+
+  getCookie(key: string, request: Request): string {
+    const cookie = request?.headers?.cookie;
+    if (isNil(cookie)) {
+      return "";
+    }
+    const cookies: { [key: string]: string } = cookie
+      .split("; ")
+      .map((s: string) => s.split("="))
+      .reduce((result: { [key: string]: string }, [key, value]) => {
+        result[key] = value;
+        return result;
+      }, {});
+
+    return cookies[key] ?? "";
   }
 
   getCurrentStep(isCompleteList: boolean[]) {
