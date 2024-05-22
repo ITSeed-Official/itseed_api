@@ -147,6 +147,8 @@ export class ApplicationsController {
     }
 
     await this.usersService.calculateSteps(userId, targetStep);
+
+    response.json();
   }
 
   getCookie(key: string, request: Request): string {
