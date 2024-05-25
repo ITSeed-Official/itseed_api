@@ -137,10 +137,11 @@ export class ApplicationsController {
       }
 
       if (errors.length > 0) {
-        throw new HttpException(
-          `${errors.join(",")} 未填寫完整或不符合規定`,
-          HttpStatus.BAD_REQUEST
-        );
+        response.status(HttpStatus.BAD_REQUEST).json({
+          error: {
+            message: `${errors.join(",")} 未填寫完整或不符合規定`,
+          },
+        });
       } else {
         targetStep = 4;
       }
