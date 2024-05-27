@@ -54,6 +54,10 @@ export class ApplicationsService {
 
     const users = await this.usersService.findAll();
 
+    if (users.length === 0) {
+      return;
+    }
+
     await sheet.spreadsheets.values.clear({
       spreadsheetId: this.sheetId,
       auth: auth,
@@ -173,6 +177,10 @@ export class ApplicationsService {
     const sheet = google.sheets("v4");
 
     const users = await this.usersService.findByStep(USER_FILE_COMPLETION);
+
+    if (users.length === 0) {
+      return;
+    }
 
     await sheet.spreadsheets.values.clear({
       spreadsheetId: this.resultSheetId,
