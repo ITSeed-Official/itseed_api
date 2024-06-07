@@ -35,7 +35,7 @@ export class GoogleUserEntity {
   @Column()
   givenName: string;
 
-  @Column()
+  @Column({ type: "text" })
   avatar: string;
 
   @OneToOne(() => UserEntity)

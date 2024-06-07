@@ -1,4 +1,12 @@
-import { Controller, Post, Res, UseGuards, Logger, Get } from "@nestjs/common";
+import {
+  Controller,
+  Post,
+  Res,
+  UseGuards,
+  Logger,
+  Get,
+  HttpStatus,
+} from "@nestjs/common";
 import { Response, CookieOptions } from "express";
 import { ConfigService } from "@nestjs/config";
 import { ApiTags } from "@nestjs/swagger";
@@ -54,20 +62,29 @@ export class AuthController {
     if (!googleUser) {
       return "No user from google";
     }
-    const user = await this.authService.createOrGetUserFromGoogle(googleUser);
-    this.logger.debug(
-      `[googleAuthRedirect] user: ${JSON.stringify(user, null, 2)}`
-    );
-    const result = await this.authService.createToken(user);
-    this.logger.debug(
-      `google.redirect result: ${JSON.stringify(result, null, 2)}`
-    );
+    try {
+      const user = await this.authService.createOrGetUserFromGoogle(googleUser);
+      this.logger.debug(
+        `[googleAuthRedirect] user: ${JSON.stringify(user, null, 2)}`
+      );
+      const result = await this.authService.createToken(user);
+      this.logger.debug(
+        `google.redirect result: ${JSON.stringify(result, null, 2)}`
+      );
 
-    this.responseSetCookie(
-      response,
-      result.access_token,
-      result.refresh_token
-    ).redirect(`${this.configService.get<string>("FRONTEND_HOST")}/apply`);
+      this.responseSetCookie(
+        response,
+        result.access_token,
+        result.refresh_token
+      ).redirect(`${this.configService.get<string>("FRONTEND_HOST")}/apply`);
+    } catch (error) {
+      console.log("[google auth error]", error);
+      response.status(HttpStatus.BAD_REQUEST).json({
+        error: {
+          message: error,
+        },
+      });
+    }
   }
 
   private responseSetCookie(
