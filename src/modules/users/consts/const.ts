@@ -108,4 +108,4 @@ export const START_TIME =
   process.env.START_TIME || `${CURRENT_YEAR.toString()}-05-25T16:00:00.000Z`;
 // ISO 8601
 export const END_TIME =
-  process.env.END_TIME || `${CURRENT_YEAR.toString()}-07-03T15:59:59.999Z`;
+  process.env.END_TIME || `${CURRENT_YEAR.toString()}-07-07T15:59:59.999Z`;
